@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 var minifyCSS = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
+var sourcemaps = require('gulp-sourcemaps');
 
 //Sass
 gulp.task('sass', function () {
@@ -21,25 +22,28 @@ gulp.task('sass', function () {
         .pipe(minifyCSS({
             compatibility: 'ie8'
         }))
-        .pipe(concat('style.css'))
+        .pipe(concat('style.min.css'))
         .pipe(gulp.dest('src/public/assets/output/css'));
 });
 //Typescript
 gulp.task("ts", function () {
     return tsProject.src()
         .pipe(tsProject())
+        .pipe(gulp.dest("src/public/assets/src/js"));
+});
+gulp.task('precompile', ['ts'], function () {
+    return gulp.src([
+            'src/public/assets/src/js/helpers.js',
+            'src/public/assets/src/js/frontend.js',
+        ])
         .pipe(uglify())
+        .pipe(concat('start.js'))
         .pipe(gulp.dest("src/public/assets/output/js"));
 });
-// gulp.task("scripts", function () {
-//     return gulp.src(['dist/init.js'])
-//         .pipe(uglify())
-//         .pipe(gulp.dest("dist"));
-// });
 
 gulp.task('watch', function () {
     gulp.watch('src/public/assets/src/ts/*.ts', ['ts'])
     gulp.watch('src/public/assets/sass/style.scss', ['sass']);
 });
 
-gulp.task('default', ['ts', 'sass', 'watch']);
+gulp.task('default', ['precompile', 'sass', 'watch']);
