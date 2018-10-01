@@ -24,7 +24,7 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Redicon\CMS_Articles\Admin\ArticlesController');
+        $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController');
         $this->loadViewsFrom(__DIR__.'/views/admin/articles', 'admin_articles');
         $this->publishes([
             __DIR__.'/views/admin/articles' => resource_path('views/vendor/admin/articles'),
