@@ -1,0 +1,11 @@
+{
+    "files": [
+        "src/public/assets/src/ts/.d.ts",
+        "src/public/assets/src/ts/frontend.ts",
+
+    ],
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "target": "es5",
+    }
+}
