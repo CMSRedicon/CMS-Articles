@@ -1,4 +1,4 @@
-@extends('layouts.static')
+@extends('layouts.app')
 @section('content')
-    {{$message}}
+   Witaj w artykułach
 @endsection
