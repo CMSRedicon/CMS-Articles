@@ -1,5 +1,5 @@
 {
-    "name": "redicon/cms",
+    "name": "redicon/cms_articles",
     "license": "MIT",
     "description": "CMS Zarządzanie podstronami",
     "homepage": "https://redicon.pl",
@@ -14,12 +14,12 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Redicon\\CMS\\": "src/"
+            "Redicon\\CMS_Articles\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Redicon\\CMS\\": "src/"
+            "Redicon\\CMS_Articles\\": "src/"
         }
     },
     "extra": {
@@ -28,7 +28,7 @@
         },
         "laravel": {
             "providers": [
-                "Redicon\\CMS\\CmsServiceProvider"
+                "Redicon\\CMS_Articles\\CmsServiceProvider"
             ]
         }
     }

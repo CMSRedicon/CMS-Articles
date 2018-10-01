@@ -1,6 +1,6 @@
 <?php
 
-namespace Redicon\CMS;
+namespace Redicon\CMS_Articles;
 use Artisan;
 use Illuminate\Support\ServiceProvider;
 
