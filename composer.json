@@ -1,0 +1,35 @@
+{
+    "name": "redicon/cms",
+    "license": "MIT",
+    "description": "CMS Zarządzanie podstronami",
+    "homepage": "https://redicon.pl",
+    "type": "library",
+    "authors": [{
+        "name": "Tomasz Cwik",
+        "email": "tomek@redicon.pl"
+    }],
+    "require": {
+        "php": "^7.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Redicon\\CMS\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Redicon\\CMS\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Redicon\\CMS\\CmsServiceProvider"
+            ]
+        }
+    }
+}
