@@ -1,2 +1,2 @@
-var Helpers;!function(e){var n=function(){function e(){}return e.prototype.printTest=function(){return"działa"},e}();e.Test=n}(Helpers||(Helpers={}));
-var n=new Helpers.Test;n.printTest();
+var Helpers;!function(o){var n=function(){function o(){}return o.prototype.printTest=function(){return"działa"},o.prototype.dump=function(o){console.log(o)},o.prototype.dd=function(o){throw console.log(o),new Error("Aborting all scripts")},o}();o.Main=n}(Helpers||(Helpers={}));
+(new Helpers.Main).dump("CMS Redicon Articles 2018");

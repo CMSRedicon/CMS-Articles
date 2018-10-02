@@ -1,1 +1,0 @@
-var Frontend=function(){this.start=function(){alert("działa!1")},this.start};

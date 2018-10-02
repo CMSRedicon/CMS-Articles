@@ -1,15 +1,34 @@
+/**
+ * Główny helper dla wszystkich skryptów pomocniczych
+ */
 var Helpers;
 (function (Helpers) {
-    var Test = /** @class */ (function () {
-        function Test() {
+    var Main = /** @class */ (function () {
+        function Main() {
         }
         /**
+         * Funkcja testowa
          * @returns string
          */
-        Test.prototype.printTest = function () {
+        Main.prototype.printTest = function () {
             return "działa";
         };
-        return Test;
+        /**
+         * Dump danych
+         * @param data
+         */
+        Main.prototype.dump = function (data) {
+            console.log(data);
+        };
+        /**
+         * Dump i przerwanie wątku
+         * @param data
+         */
+        Main.prototype.dd = function (data) {
+            console.log(data);
+            throw new Error('Aborting all scripts');
+        };
+        return Main;
     }());
-    Helpers.Test = Test;
+    Helpers.Main = Main;
 })(Helpers || (Helpers = {}));

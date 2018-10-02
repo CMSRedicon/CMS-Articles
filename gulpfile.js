@@ -42,7 +42,7 @@ gulp.task('precompile', ['ts'], function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('src/public/assets/src/ts/*.ts', ['ts'])
+    gulp.watch('src/public/assets/src/ts/*.ts', ['precompile'])
     gulp.watch('src/public/assets/sass/style.scss', ['sass']);
 });
 

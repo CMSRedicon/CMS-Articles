@@ -27,11 +27,15 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController');
         $this->loadViewsFrom(__DIR__.'/views/admin/articles', 'admin_articles');
         $this->loadViewsFrom(__DIR__.'/views/partials', 'cmsr_partials');
+
+        //widoki
         $this->publishes([
             __DIR__.'/views/admin/articles' => resource_path('views/vendor/admin/articles'),
         ]);
+
+        //assets
         $this->publishes([
-            __DIR__.'/public/assets/output' => public_path('vendor/cmsr_articles/assets'),
+            __DIR__.'/public/assets/output' => public_path('vendor/cms_articles/assets'),
         ], 'public');
     }
 }
