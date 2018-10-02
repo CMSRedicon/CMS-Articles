@@ -36,6 +36,12 @@ class CmsServiceProvider extends ServiceProvider
         //assets
         $this->publishes([
             __DIR__.'/public/assets/output' => public_path('vendor/cms_articles/assets'),
-        ], 'public');
+        ]);
+
+        //obrazek artykułu testowego
+        $this->publishes([
+            __DIR__.'/public/assets/articles' => public_path('vendor/cms_articles/articles'),
+        ]);
+
     }
 }

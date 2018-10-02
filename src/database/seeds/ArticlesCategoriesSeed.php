@@ -1,6 +1,7 @@
 <?php
-
+namespace Redicon\CMS_Articles\Database\Seeds;
 use Illuminate\Database\Seeder;
+use Redicon\CMS_Articles\App\Models\ArticlesCategories;
 
 class ArticlesCategoriesSeed extends Seeder
 {
@@ -11,6 +12,8 @@ class ArticlesCategoriesSeed extends Seeder
      */
     public function run()
     {
-        //
+        ArticlesCategories::create([
+            'position' => 1
+        ]);
     }
 }
