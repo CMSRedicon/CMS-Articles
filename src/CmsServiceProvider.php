@@ -13,8 +13,6 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require_once __DIR__ . '/../vendor/autoload.php';
-
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
