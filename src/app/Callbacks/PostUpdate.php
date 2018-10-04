@@ -1,9 +1,7 @@
 <?php
 namespace App\Callbacks;
 
-use App\Interfaces\Runnable;
-
-class PostUpdate implements Runnable{
+class PostUpdate {
 
     public function run()
     {

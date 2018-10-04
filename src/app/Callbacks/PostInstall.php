@@ -1,9 +1,7 @@
 <?php
 namespace App\Callbacks;
 
-use App\Interfaces\Runnable;
-
-class PostInstall implements Runnable{
+class PostInstall {
 
     public function run(){
 
