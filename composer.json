@@ -15,12 +15,18 @@
     "autoload": {
         "psr-4": {
             "Redicon\\CMS_Articles\\": "src/"
-        }
+        },
+        "files": [
+            "src/app/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "Redicon\\CMS_Articles\\": "src/"
-        }
+        },
+        "files": [
+            "src/app/helpers.php"
+        ]
     },
     "extra": {
         "branch-alias": {
@@ -31,5 +37,13 @@
                 "Redicon\\CMS_Articles\\CmsServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "composer dump-autoload"
+        ]
     }
 }

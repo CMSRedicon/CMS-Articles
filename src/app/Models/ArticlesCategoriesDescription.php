@@ -10,6 +10,10 @@ class ArticlesCategoriesDescription extends Model
     protected $visible = ['id', 'article_category_id', 'name', 'lang', 'created_at', 'updated_at'];
     protected $fillable = ['article_category_id', 'name', 'lang', 'created_at', 'updated_at'];
 
+    public function getLangAttribute(){
+        return $this->where('lang','pl');
+    }
+
     public function ArticlesCategories(){
         return $this->belongsTo(ArticlesCategories::class, 'article_category_id');
     }

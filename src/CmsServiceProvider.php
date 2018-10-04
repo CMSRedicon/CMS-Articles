@@ -13,8 +13,14 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/routes/routes.php');
+        require_once __DIR__ . '/../vendor/autoload.php';
+
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+
+        //tłumaczenia
+        $this->loadTranslationsFrom(__DIR__.'/lang', 'cms_articles_lang');
+
     }
 
     /**
@@ -26,7 +32,8 @@ class CmsServiceProvider extends ServiceProvider
     {
         $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController');
         $this->loadViewsFrom(__DIR__.'/views/admin/articles', 'admin_articles');
-        $this->loadViewsFrom(__DIR__.'/views/partials', 'cmsr_partials');
+        $this->loadViewsFrom(__DIR__.'/views/partials', 'cms_articles_partials');
+        $this->loadViewsFrom(__DIR__.'/views/menu', 'cms_articles_menu');
 
         //widoki
         $this->publishes([
