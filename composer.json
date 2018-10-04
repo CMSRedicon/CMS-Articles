@@ -37,18 +37,5 @@
                 "Redicon\\CMS_Articles\\CmsServiceProvider"
             ]
         }
-    },
-    "scripts": {
-        "post-package-install": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan migrate:fresh --path=vendor\\redicon\\cms_articles\\src\\database\\migrations",
-            "php artisan db:seed --class=Redicon\\CMS_Articles\\Database\\Seeds\\DatabaseSeeder",
-            "composer dump-autoload"
-        ],
-        "post-package-update": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan migrate --path=vendor\\redicon\\cms_articles\\src\\database\\migrations",
-            "composer dump-autoload"
-        ]
     }
 }
