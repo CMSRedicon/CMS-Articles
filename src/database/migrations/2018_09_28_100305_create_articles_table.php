@@ -19,8 +19,8 @@ class CreateArticlesTable extends Migration
             $table->unsignedInteger('article_category_id');
             $table->foreign('article_category_id')->references('id')->on('articles_categories')->onDelete('cascade');
             $table->longText('template');
-            $table->tinyInteger('in_menu');
-            $table->tinyInteger('is_public');
+            $table->boolean('in_menu')->default(1);
+            $table->boolean('is_public')->default(1);
             $table->integer('order');
             $table->timestamps();
         });
