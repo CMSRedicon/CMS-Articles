@@ -1,5 +1,5 @@
 <?php
-use Illuminate\Support\Facades\Artisan;
+use \Illuminate\Support\Facades\Artisan;
 namespace App\Callbacks;
 
 class PostInstall {
