@@ -2,6 +2,8 @@
 
 namespace Redicon\CMS_Articles;
 use Artisan;
+use App\Console\Commands\PostUpdate;
+use App\Console\Commands\PostInstall;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
@@ -18,6 +20,13 @@ class CmsServiceProvider extends ServiceProvider
 
         //tłumaczenia
         $this->loadTranslationsFrom(__DIR__.'/lang', 'cms_articles_lang');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                PostInstall::class,
+                PostUpdate::class,
+            ]);
+        }
 
     }
 
