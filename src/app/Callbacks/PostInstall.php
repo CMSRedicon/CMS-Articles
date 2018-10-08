@@ -14,7 +14,7 @@ class PostInstall {
         return [
             'php artisan migrate --path=vendor\redicon\cms_articles\src\database\migrations',
             'php artisan db:seed --class=Redicon\CMS_Articles\Database\Seeds\DatabaseSeeder',
-            'php vendor:publish --providers=Redicon\CMS_Articles\CmsServiceProvider',
+            'php artisan vendor:publish --provider=Redicon\CMS_Articles\CmsServiceProvider',
         ];
         
     }
