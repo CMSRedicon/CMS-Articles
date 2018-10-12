@@ -15,5 +15,8 @@ class ArticlesCategoriesSeed extends Seeder
         ArticlesCategories::create([
             'position' => 1
         ]);
+        ArticlesCategories::create([
+            'position' => 2
+        ]);
     }
 }

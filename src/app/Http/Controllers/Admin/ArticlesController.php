@@ -3,6 +3,7 @@
 namespace Redicon\CMS_Articles\App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Redicon\CMS_Articles\App\Models\Articles;
+use Redicon\CMS_Articles\App\Models\ArticlesCategories;
 
 class ArticlesController extends Controller
 {
@@ -14,10 +15,25 @@ class ArticlesController extends Controller
     }
 
 
+    /**
+     * Widok tworzenia artykułu
+     *
+     * @param String $lang
+     * @return void
+     */
+    public function create(String $lang = null){
 
-    public function create(){
+        if(is_null($lang)) $lang = 'pl';
 
-        return view('admin_articles::create');
+        $articlesCategories = [];
+        
+        ArticlesCategories::whereHas('ArticlesCategoriesDescription',function($query) use($lang){
+            $query->where('lang', $lang);
+        })->each(function($item) use(&$articlesCategories){
+            $articlesCategories[$item->id] = $item->ArticlesCategoriesDescription->first()->name;
+        });
+
+        return view('admin_articles::create',compact('articlesCategories'));
 
     }
 

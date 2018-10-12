@@ -14,8 +14,24 @@ class ArticlesCategoriesDescriptionSeed extends Seeder
     {
         ArticlesCategoriesDescription::create([
             'article_category_id' => 1,
-            'name' => 'main',
+            'name' => 'główna',
             'lang' => 'pl',
+        ]);
+        ArticlesCategoriesDescription::create([
+            'article_category_id' => 1,
+            'name' => 'main',
+            'lang' => 'en',
+        ]);
+
+        ArticlesCategoriesDescription::create([
+            'article_category_id' => 2,
+            'name' => 'body',
+            'lang' => 'pl',
+        ]);
+        ArticlesCategoriesDescription::create([
+            'article_category_id' => 2,
+            'name' => 'body',
+            'lang' => 'en',
         ]);
     }
 }

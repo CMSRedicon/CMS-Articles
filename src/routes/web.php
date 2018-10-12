@@ -3,7 +3,7 @@ Route::group(['middleware' => ['web','auth', 'language']], function () {
     
     /* Artykuły */
     Route::get('/admin/articles', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController@index')->name('admin.articles.index');
-    Route::get('/admin/articles/create', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController@create')->name('admin.articles.create');
+    Route::get('/admin/articles/create/{lang?}', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController@create')->name('admin.articles.create');
     Route::get('/admin/articles/edit/{article_id}/{lang?}', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController@edit')->name('admin.articles.edit');
     Route::post('/admin/articles/order/store', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController@store')->name('admin.articles.order.store');
     Route::post('/admin/articles/delete/{$article_id}', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController@delete')->name('admin.articles.delete');
