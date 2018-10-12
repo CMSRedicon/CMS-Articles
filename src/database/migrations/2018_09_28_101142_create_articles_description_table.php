@@ -20,7 +20,7 @@ class CreateArticlesDescriptionTable extends Migration
             $table->string('url',1000);
             $table->string('lang',3);
             $table->string('name',1000);
-            $table->text('addmission');
+            $table->text('lead');
             $table->longText('description');
             $table->string('link',1000);
             $table->string('img_src',1000);

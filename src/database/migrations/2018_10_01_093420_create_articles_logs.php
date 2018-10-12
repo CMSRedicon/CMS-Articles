@@ -13,11 +13,11 @@ class CreateArticlesLogs extends Migration
      */
     public function up()
     {
-        Schema::create('articles_logs', function (Blueprint $table) {
+        Schema::create('articles_versions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->longText('vars');
+            $table->longText('json');
             $table->timestamps();
         });
     }

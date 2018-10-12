@@ -17,7 +17,7 @@ class ArticlesDescriptionSeed extends Seeder
            'url' => 'articles/1',
            'lang' => 'pl',
            'name' => "Główny artykuł opis",
-           'addmission' => 'Coś tam',
+           'lead' => 'Nagłówek',
            'description'=> 'Jakiś opis',
            'link' => 'articles/1',
            'img_src' => 'vendor/cms_articles/articles/images/test.png'

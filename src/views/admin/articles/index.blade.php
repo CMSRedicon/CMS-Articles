@@ -3,9 +3,9 @@
 @include('cms_articles_partials::javascripts')
 @section('content')
     <h3 class="page-title">@lang('cms_articles_lang::articles.articles_title')</h3>
-    {{--  <p>
-        <a href="{{ route('admin.users.create') }}" class="btn btn-success">@lang('global.app_add_new')</a>
-    </p>  --}}
+    <p>
+        <a href="{{ route('admin.articles.create') }}" class="btn btn-success">Dodaj</a>
+    </p>
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -22,7 +22,6 @@
                         <th>Kolejność</th>
                         <th>Widoczność</th>
                         <th>Opcje</th>
-
                     </tr>
                 </thead>
                 
@@ -40,6 +39,12 @@
                                 {!! Form::text('order['.$article->id.']', old('order.' . $article->id) ? old('order.' . $article->id) : $article->order, []) !!}
                                 </td>
                                 <td>@include('cms_articles_partials::is_public_radio', ['article_id' => $article->id, 'checked' => $article->is_public])</td>
+                                <td>        
+                                    <a href="{{route('admin.articles.edit', [$article->id])}}">Edytuj</a>
+                                    <a href="{{route('admin.articles.delete', [$article->id])}}">Usuń</a>
+                                    <br>
+                                   //todo popup do usunięcia
+                                </td>
                             </tr>
                         @endforeach
 

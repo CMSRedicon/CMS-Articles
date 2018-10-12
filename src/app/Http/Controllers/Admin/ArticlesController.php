@@ -13,6 +13,17 @@ class ArticlesController extends Controller
         return view('admin_articles::index', compact('articles'));
     }
 
+
+
+    public function create(){
+
+        return view('admin_articles::create');
+
+    }
+
+
+
+
     /**
      * TODO
      * Edycja artykułu 
