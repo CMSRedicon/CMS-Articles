@@ -28,13 +28,23 @@
                 
                 <tbody>
                     @if (count($articles) > 0)
+                    
+                    {!! Form::open(['method' => 'POST', 'route' => ['admin.articles.order.store']]) !!}
+                    
                         @foreach ($articles as $article)
                             <tr>
                                 <td>{{$article->id}}</td>
                                 <td>{{$article->PolishArticlesDescription->name}}</td>
-                                <td>{{getArticleLanguageLinks()}}</td>
+                                <td>{!! getArticleLanguageLinks($article->id) !!}</td>
+                                <td>
+                                {!! Form::text('order['.$article->id.']', old('order.' . $article->id) ? old('order.' . $article->id) : $article->order, []) !!}
+                                </td>
+                                <td>@include('cms_articles_partials::is_public_radio', ['article_id' => $article->id, 'checked' => $article->is_public])</td>
                             </tr>
                         @endforeach
+
+                        {!! Form::submit('Zapisz kolejność', []) !!}
+                        
                     @else
                         <tr>
                             <td colspan="9">Brak danych</td>

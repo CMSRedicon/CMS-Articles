@@ -7,6 +7,7 @@ var sass = require('gulp-sass');
 var minifyCSS = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
+var clean = require('gulp-clean');
 
 //Sass
 gulp.task('sass', function () {
@@ -33,12 +34,15 @@ gulp.task("ts", function () {
 });
 gulp.task('precompile', ['ts'], function () {
     return gulp.src([
+            'src/public/assets/src/js/variables.js',
             'src/public/assets/src/js/helpers.js',
             'src/public/assets/src/js/frontend.js',
         ])
+        .pipe(clean())
         .pipe(uglify())
         .pipe(concat('start.js'))
         .pipe(gulp.dest("src/public/assets/output/js"));
+
 });
 
 gulp.task('watch', function () {

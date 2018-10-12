@@ -18,7 +18,7 @@ class ArticlesSeed extends Seeder
             'template' => '<div><h1>Główny Artykuł</h1></div>',
             'in_menu' => 1,
             'is_public' => 1,
-            'order' => 0,
+            'order' => 1,
         ]);
     }
 }

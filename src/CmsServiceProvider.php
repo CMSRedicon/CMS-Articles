@@ -28,12 +28,16 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //kontrolery
         $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController');
+        $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Ajax\AjaxController');
+
+        //widoki
         $this->loadViewsFrom(__DIR__.'/views/admin/articles', 'admin_articles');
         $this->loadViewsFrom(__DIR__.'/views/partials', 'cms_articles_partials');
         $this->loadViewsFrom(__DIR__.'/views/menu', 'cms_articles_menu');
 
-        //widoki
+        //vendory
         $this->publishes([
             __DIR__.'/views/admin/articles' => resource_path('views/vendor/admin/articles'),
             __DIR__.'/public/assets/output' => public_path('vendor/cms_articles/assets'),

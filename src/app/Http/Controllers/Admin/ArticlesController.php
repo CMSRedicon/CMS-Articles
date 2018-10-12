@@ -13,4 +13,21 @@ class ArticlesController extends Controller
         return view('admin_articles::index', compact('articles'));
     }
 
+    /**
+     * TODO
+     * Edycja artykułu 
+     *
+     * @param integer $article_id
+     * @param string $lang
+     * @return void
+     */
+    public function edit(int $article_id, string $lang = null){
+
+        dump($lang);
+        dd($article_id);
+
+    }
+
+    
+
 }
