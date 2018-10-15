@@ -5,10 +5,18 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Redicon\CMS_Articles\App\Models\Articles;
 use Redicon\CMS_Articles\App\Models\ArticlesCategories;
+use Redicon\CMS_Articles\App\Repositories\ArticlesRepo;
 use Redicon\CMS_Articles\App\Http\Request\Admin\StoreArticlesRequest;
 
 class ArticlesController extends Controller
 {
+
+    private $articlesRepo;
+
+    public function __construct()
+    {
+        $this->articlesRepo = new ArticlesRepo();
+    }
     
     public function index()
     {
@@ -52,11 +60,12 @@ class ArticlesController extends Controller
         DB::beginTransaction();
         
         try{
-            
-           
+
+               if(!$this->articlesRepo->store($data)){
+                   DB::rollback();
+                   return redirect()->route('admin.articles')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors()));
+               }
                             
-
-
 
         }catch(\PDOException $e){
 

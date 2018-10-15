@@ -41,5 +41,34 @@ if(!function_exists('getArticleLanguageCreateLinks')){
         }
         return $str;
     }
-
 }
+
+if(!function_exists('implodeArrayToHtml')){
+
+    /**
+     * Zmienia tablice w stringa
+     *
+     * @param array $data
+     * @param String $delimeter
+     * @return string
+     */
+    function implodeArrayToHtml(array $data, String $delimeter = null) : string {
+
+        if(is_null($delimeter)) $delimeter = "<br>";
+       
+        $string = "";
+
+        if(!empty($data)){
+            if(is_array($data)){
+                return implode($delimeter, $data);
+            }else if(gettype($data) == "string"){
+                return $data;
+            }
+
+        } 
+
+        return $string;
+
+    }
+}
+
