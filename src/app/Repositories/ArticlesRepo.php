@@ -35,8 +35,6 @@ class ArticlesRepo {
             return false;
         } 
 
-        dd($data);
-
         $article = Articles::create([
             'parent_id' => null, //todo
             'article_category_id' => $data['article_category_id'],
@@ -45,6 +43,9 @@ class ArticlesRepo {
             'template' => 'default',
             'order' => $data['articles_order']
         ]);
+
+        dd($data);
+        $article->ArticlesDescription()->create([]);
 
         return true;
     }

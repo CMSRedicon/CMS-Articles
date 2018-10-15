@@ -198,7 +198,9 @@
                 </div>           
         </div>
     </div>
- 
+        
+        {!! Form::hidden('articles_lang', $lang, []) !!}
+        
         {!! Form::submit('Zapisz',  ['class' => 'btn btn-danger']) !!}        
         {!! Form::close() !!}
         
