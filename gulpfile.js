@@ -36,6 +36,7 @@ gulp.task('precompile', ['ts'], function () {
     return gulp.src([
             'src/public/assets/src/js/variables.js',
             'src/public/assets/src/js/helpers.js',
+            'src/public/assets/src/js/slug.js',
             'src/public/assets/src/js/frontend.js',
         ])
         .pipe(clean())

@@ -33,7 +33,7 @@ class ArticlesController extends Controller
             $articlesCategories[$item->id] = $item->ArticlesCategoriesDescription->first()->name;
         });
 
-        return view('admin_articles::create',compact('articlesCategories'));
+        return view('admin_articles::create',compact('articlesCategories', 'lang'));
 
     }
 

@@ -34,7 +34,7 @@
                             <tr>
                                 <td>{{$article->id}}</td>
                                 <td>{{$article->PolishArticlesDescription->name}}</td>
-                                <td>{!! getArticleLanguageLinks($article->id) !!}</td>
+                                <td>{!! getArticleLanguageEditLinks($article->id) !!}</td>
                                 <td>
                                 {!! Form::text('order['.$article->id.']', old('order.' . $article->id) ? old('order.' . $article->id) : $article->order, []) !!}
                                 </td>

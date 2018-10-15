@@ -6,10 +6,8 @@
 
     <div class="panel panel-default col-md-8">
         <div class="panel panel-body">
-    
-        
+            
         {!! Form::open(['method' => 'POST', 'route' => ['admin.articles.store'], 'files' => true]) !!}
-        
 
          <div class="row">
                 <div class="col-xs-12 form-group">
@@ -147,6 +145,7 @@
 
                         @endif
 
+                        <a href="{{route('admin.articles.categories.create')}}">Dodaj nową kategorię</a>
                  
                     <p class="help-block"></p>
                     @if($errors->has('articles_is_public'))
@@ -157,17 +156,37 @@
                    
                 </div>
             </div>
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        Wersja językowa
+                        <br>
+                        {!! getArticleLanguageCreateLinks($lang) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        Link do wpisu
+                        <br>
+                        
+                        {!! Form::text('articles_seo_slug', old('articles_seo_slug'), ['class' => 'form-control']) !!}
+                        @if($errors->has('articles_seo_slug'))
+                            <p class="help-block">
+                                {{ $errors->first('articles_seo_slug') }}
+                            </p>
+                        @endif
+                    </div>
+                </div>
 
-
-            
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                       Podgląd <br>
+                       //todo
+                    </div>
+                </div>           
         </div>
     </div>
  
-        {!! Form::submit('Zapisz',  ['class' => 'btn btn-danger']) !!}
-        
-
-        
+        {!! Form::submit('Zapisz',  ['class' => 'btn btn-danger']) !!}        
         {!! Form::close() !!}
         
-
     @endsection

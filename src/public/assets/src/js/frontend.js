@@ -1,20 +1,16 @@
 /**
  * Główny wątek, ekwiwalent document.ready
  */
-; (function () {
-
+;
+(function () {
     var helper = new Helpers.Main();
     var slug = new Slug.Main();
-
     helper.dump("CMS Redicon Articles 2018");
-
     //Custom trigger dla cmsr
     if ($('[data-cmsr-trigger]').length > 0) {
-
         $('[data-cmsr-trigger]').each(function ($key, $item) {
-
             if (typeof $(this).data(helper.CMSR_TRIGGER) != typeof undefined) {
-                let action = $(this).data(helper.CMSR_TRIGGER);
+                var action = $(this).data(helper.CMSR_TRIGGER);
                 //główny switch dla wszystkich trigerów
                 switch (action) {
                     case 'sendArticleVisibility':
@@ -22,7 +18,6 @@
                             helper.sendArticleVisibility($(this));
                         });
                         break;
-
                     case 'clickArticleLangCreate':
                         $(this).click(function (e) {
                             e.preventDefault();
@@ -31,15 +26,13 @@
                             }
                         });
                         break;
-
                     case 'addBeforUnload':
                         window.onbeforeunload = function () {
                             return "Nie zapisane dane zostaną utracone. Napewno chcesz opuścić stronę ?";
-                        }
+                        };
                         break;
                 }
             }
         });
     }
-
 })();
