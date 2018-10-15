@@ -134,7 +134,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group">
                     
-                    {!! Form::label('articles_is_public', 'Wybierz kategorię', ['class' => 'control-label']) !!}
+                    {!! Form::label('article_category_id', 'Wybierz kategorię', ['class' => 'control-label']) !!}
                     <br>
                         @if(!empty($articlesCategories))
                             @foreach ($articlesCategories as $id => $name)
@@ -148,9 +148,9 @@
                         <a href="{{route('admin.articles.categories.create')}}">Dodaj nową kategorię</a>
                  
                     <p class="help-block"></p>
-                    @if($errors->has('articles_is_public'))
+                    @if($errors->has('article_category_id'))
                         <p class="help-block">
-                            {{ $errors->first('articles_is_public') }}
+                            {{ $errors->first('article_category_id') }}
                         </p>
                     @endif
                    

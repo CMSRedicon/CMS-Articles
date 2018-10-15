@@ -1,9 +1,11 @@
 <?php
 
 namespace Redicon\CMS_Articles\App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Redicon\CMS_Articles\App\Models\Articles;
 use Redicon\CMS_Articles\App\Models\ArticlesCategories;
+use Redicon\CMS_Articles\App\Http\Request\Admin\StoreArticlesRequest;
 
 class ArticlesController extends Controller
 {
@@ -37,6 +39,39 @@ class ArticlesController extends Controller
 
     }
 
+    /**
+     * Zapis artykułu
+     *
+     * @param StoreArticlesRequest $request
+     * @return void
+     */
+    public function store(StoreArticlesRequest $request){
+    
+        $data = $request->all();
+       
+        DB::beginTransaction();
+        
+        try{
+            
+           
+                            
+
+
+
+        }catch(\PDOException $e){
+
+            DB::rollback();
+
+        }catch(\Exception $e){
+            
+            DB::rollback();
+            
+
+        }
+        
+        DB::commit();
+        return redirect()->route('admin.articles')->with('success', 'Pomyślnie zapisano !');
+    }
 
 
 

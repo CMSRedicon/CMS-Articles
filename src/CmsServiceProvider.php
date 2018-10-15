@@ -44,6 +44,11 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__.'/public/assets/articles' => public_path('vendor/cms_articles/articles'),
         ], 'cms_articles_vendors');
  
+        //pliki artykułu - zdjęcie główne
+        $this->app->config['filesystem.disks.articles'] = array(
+            'driver' => 'local',
+            'root' => storage_path('articles')
+        );
 
     }
 }
