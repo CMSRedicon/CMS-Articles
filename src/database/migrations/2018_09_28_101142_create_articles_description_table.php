@@ -17,13 +17,13 @@ class CreateArticlesDescriptionTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->string('slug',1000);
+            $table->string('slug',1000)->nullable();
             $table->string('lang',3);
             $table->string('name',1000);
-            $table->text('lead');
+            $table->text('lead')->nullable();
             $table->longText('description');
-            $table->string('link',1000);
-            $table->string('img_src',1000);
+            $table->string('link',1000)->nullable();
+            $table->string('img_src',1000)->nullable();
             $table->timestamps();
         });
     }

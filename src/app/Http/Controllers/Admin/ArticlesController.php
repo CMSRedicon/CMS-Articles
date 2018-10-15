@@ -68,13 +68,14 @@ class ArticlesController extends Controller
                             
 
         }catch(\PDOException $e){
-
+            app('sentry')->captureException($e);
             DB::rollback();
+            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
 
         }catch(\Exception $e){
-            
+            app('sentry')->captureException($e);
             DB::rollback();
-            
+            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
 
         }
         

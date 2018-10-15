@@ -9,8 +9,11 @@ use Redicon\CMS_Articles\App\Models\Articles;
 class ArticlesRepo {
 
     private $errors;
+    private $articles_file_repo;
     public function __construct(){
         $this->errors = array();
+        $this->articles_file_repo = new ArticlesFileRepo();
+
     }
 
     /**
@@ -43,9 +46,19 @@ class ArticlesRepo {
             'template' => 'default',
             'order' => $data['articles_order']
         ]);
+ 
 
-        dd($data);
-        $article->ArticlesDescription()->create([]);
+       $articlesDescription = $article->ArticlesDescription()->create([
+            'slug' => $data['articles_seo_slug'] ?? null,
+            'lang' => $data['articles_lang' ?? null],
+            'name' => $data['articles_description_name'] ?? null,
+            'lead' => $data['articles_description_lead'] ?? null,
+            'description' => $data['articles_description_description'] ?? null,
+        ]);
+
+        if(!empty($data['articles_description_img_src'])){
+            $articlesDescriptionImgSrc = $this->articles_file_repo->saveArticleImage($article->id, $articlesDescription->id, $data['articles_description_img_src']);
+        }
 
         return true;
     }

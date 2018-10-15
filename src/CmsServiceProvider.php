@@ -45,7 +45,7 @@ class CmsServiceProvider extends ServiceProvider
         ], 'cms_articles_vendors');
  
         //pliki artykułu - zdjęcie główne
-        $this->app->config['filesystem.disks.articles'] = array(
+        $this->app->config['filesystems.disks.articles'] = array(
             'driver' => 'local',
             'root' => storage_path('articles')
         );
