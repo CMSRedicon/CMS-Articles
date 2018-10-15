@@ -63,7 +63,7 @@ class ArticlesController extends Controller
 
             if(!$this->articlesRepo->store($data)){
                 DB::rollback();
-                return redirect()->route('admin.articles')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors(),null));
+                return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors(),null));
             }
                             
 
@@ -79,7 +79,7 @@ class ArticlesController extends Controller
         }
         
         DB::commit();
-        return redirect()->route('admin.articles')->with('success', 'Pomyślnie zapisano !');
+        return redirect()->route('admin.articles.index')->with('success', 'Pomyślnie zapisano !');
     }
 
 

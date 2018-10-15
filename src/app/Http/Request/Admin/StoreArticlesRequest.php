@@ -28,6 +28,7 @@ class StoreArticlesRequest extends FormRequest
             'articles_description_img_src' => 'nullable|max:4098',
             'article_category_id' => 'required|exists:articles_categories,id',
             'articles_seo_slug' => 'required',
+            'articles_order' => 'integer|min:0'
         ];
     }
 }
