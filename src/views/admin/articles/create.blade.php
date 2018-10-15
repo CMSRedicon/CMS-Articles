@@ -12,7 +12,7 @@
          <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('articles_description_name', 'Tytuł*', ['class' => 'control-label']) !!}
-                     {!! Form::text('articles_description_name', old('articles_description_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                     {!! Form::text('articles_description_name', old('articles_description_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '', 'data-cmsr-trigger' => 'updateSlugArticle']) !!}
                   
                     <p class="help-block"></p>
                     @if($errors->has('articles_description_name'))

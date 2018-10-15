@@ -37,6 +37,16 @@
                             return "Nie zapisane dane zostaną utracone. Napewno chcesz opuścić stronę ?";
                         }
                         break;
+
+                    case 'updateSlugArticle':
+
+                        $(this).keypress(function () {
+
+                            helper.dump(slug.slug($(this).val(), '-'));
+
+                        });
+
+                        break;
                 }
             }
         });
