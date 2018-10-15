@@ -61,10 +61,10 @@ class ArticlesController extends Controller
         
         try{
 
-               if(!$this->articlesRepo->store($data)){
-                   DB::rollback();
-                   return redirect()->route('admin.articles')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors()));
-               }
+            if(!$this->articlesRepo->store($data)){
+                DB::rollback();
+                return redirect()->route('admin.articles')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors(),null));
+            }
                             
 
         }catch(\PDOException $e){
