@@ -14,7 +14,7 @@ class ArticlesDescriptionSeed extends Seeder
     {
        ArticlesDescription::create([
            'article_id' => 1,
-           'url' => 'articles/1',
+           'slug' => 'pl/testy',
            'lang' => 'pl',
            'name' => "Główny artykuł opis",
            'lead' => 'Nagłówek',

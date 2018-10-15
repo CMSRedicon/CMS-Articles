@@ -37,13 +37,18 @@
                             return "Nie zapisane dane zostaną utracone. Napewno chcesz opuścić stronę ?";
                         }
                         break;
-
                     case 'updateSlugArticle':
-
-                        $(this).keypress(function () {
-
-                            helper.dump(slug.slug($(this).val(), '-'));
-
+                        $(this).keyup(function () {
+                            if ($('#articles_seo_slug').length > 0) {
+                                let articleSeoSlug = $('#articles_seo_slug');
+                                if (typeof $(this).val() != undefined && $(this).val() != null && $(this).val() != "") {
+                                    let choosedLang = articleSeoSlug.data('choosed-lang');
+                                    let slugText = slug.slug($(this).val(), '-');
+                                    articleSeoSlug.val('/' + choosedLang + '/' + slugText);
+                                } else {
+                                    articleSeoSlug.val('');
+                                }
+                            }
                         });
 
                         break;

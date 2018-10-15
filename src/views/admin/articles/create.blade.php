@@ -168,7 +168,7 @@
                         Link do wpisu
                         <br>
                         
-                        {!! Form::text('articles_seo_slug', old('articles_seo_slug'), ['class' => 'form-control']) !!}
+                        {!! Form::text('articles_seo_slug', old('articles_seo_slug'), ['class' => 'form-control', 'id' => 'articles_seo_slug','data-choosed-lang' => $lang]) !!}
                         @if($errors->has('articles_seo_slug'))
                             <p class="help-block">
                                 {{ $errors->first('articles_seo_slug') }}
