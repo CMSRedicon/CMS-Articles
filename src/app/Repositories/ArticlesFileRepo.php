@@ -18,10 +18,9 @@ class ArticlesFileRepo
      * @param UploadedFile $file
      * @return void
      */
-    public static function saveArticleImage(int $articleId, int $articleDescriptionId, UploadedFile $file)
+    public static function saveArticleImage(string $path, UploadedFile $file)
     {
-        $path = $articleId . '/' . $articleDescriptionId;
-        
+       
         $helper = new FileRepo(self::DISK);
         $helper->checkAndMakeDir($path);
 

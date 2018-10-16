@@ -40,7 +40,7 @@
                                 </td>
                                 <td>@include('cms_articles_partials::is_public_radio', ['article_id' => $article->id, 'checked' => $article->is_public])</td>
                                 <td>        
-                                    <a href="{{route('admin.articles.edit', [$article->id])}}">Edytuj</a>
+                                    <a href="{{route('admin.articles.edit', [$article->id, 'pl'])}}">Edytuj</a>
                                     <a href="{{route('admin.articles.delete', [$article->id])}}">Usuń</a>
                                     <br>
                                    //todo popup do usunięcia

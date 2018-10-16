@@ -81,7 +81,7 @@ class ArticlesRepo
 
         $articlesDescription = $article->ArticlesDescription()->create([
             'slug' => $data['articles_description_slug'] ?? null,
-            'lang' => $data['articles_lang' ?? null],
+            'lang' => $data['articles_lang'],
             'name' => $data['articles_description_name'] ?? null,
             'lead' => $data['articles_description_lead'] ?? null,
             'description' => $data['articles_description_description'] ?? null,
@@ -96,7 +96,8 @@ class ArticlesRepo
         }
 
         if (!empty($data['articles_description_img_src'])) {
-            $articlesDescriptionImgSrc = $this->articles_file_repo->saveArticleImage($article->id, $articlesDescription->id, $data['articles_description_img_src']);
+            $path = $article->id . '/' . $articlesDescription->id .'/' . $data['articles_lang'];
+            $articlesDescriptionImgSrc = $this->articles_file_repo->saveArticleImage($path, $data['articles_description_img_src']);
             $articlesDescription->img_src = $articlesDescriptionImgSrc;
             $articlesDescription->save();
         }
@@ -117,6 +118,10 @@ class ArticlesRepo
             $this->errors[] = "Brak danych!";
             return false;
         }
+
+        if (isset($data['articles_is_public'])) {
+            $article->is_public = $data['articles_is_public'];
+        }
  
         if (isset($data['parent_id'])) {
             $article->parent_id = $data['parent_id'];
@@ -128,10 +133,6 @@ class ArticlesRepo
 
         if (isset($data['in_menu'])) {
             $article->in_menu = $data['in_menu'];
-        }
-
-        if (isset($data['articles_order'])) {
-            $article->order = $data['articles_order'];
         }
 
         if (isset($data['articles_description_description'])) {
@@ -147,11 +148,12 @@ class ArticlesRepo
         }
 
         if (!empty($data['articles_description_img_src'])) {
+            $path = $article->id . '/' . $articlesDescription->id . '/' . $articlesDescription->lang;
+
             if (!empty($articlesDescription->img_src)) {
-                $path = $article->id . '/' . $articlesDescription->id;
                 $this->articles_file_repo->deleteArticleFiles($path);
             }
-            $articlesDescription->img_src = $this->articles_file_repo->saveArticleImage($article->id, $articlesDescription->id, $data['articles_description_img_src']);
+            $articlesDescription->img_src = $this->articles_file_repo->saveArticleImage($path, $data['articles_description_img_src']);
         }
 
         if (!empty($data['articles_seo_title']) || !empty($data['articles_seo_meta']) || !empty($data['articles_seo_keywords'])) {

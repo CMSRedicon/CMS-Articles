@@ -53,19 +53,7 @@
                     @endif
                 </div>
             </div>
-         <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('articles_order', 'Kolejność', ['class' => 'control-label']) !!}
-                    {!! Form::number('articles_order', old('articles_order') ,['class' => 'form-control','min' => 0]) !!}
-                  
-                    <p class="help-block"></p>
-                    @if($errors->has('articles_order'))
-                        <p class="help-block">
-                            {{ $errors->first('articles_order') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
+
          <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('articles_description_description', 'Treść*', ['class' => 'control-label']) !!}
