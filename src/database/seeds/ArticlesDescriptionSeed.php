@@ -20,7 +20,7 @@ class ArticlesDescriptionSeed extends Seeder
            'lead' => 'Nagłówek',
            'description'=> 'Jakiś opis',
            'link' => 'articles/1',
-           'img_src' => 'vendor/cms_articles/articles/images/test.png'
+           'img_src' => null
        ]);
     }
 }

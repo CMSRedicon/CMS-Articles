@@ -29,7 +29,7 @@ class StoreArticlesRequest extends FormRequest
             'article_category_id' => 'required|exists:articles_categories,id',
             'articles_seo_slug' => 'required',
             'articles_order' => 'integer|min:0',
-            'articles_lang' => 'required|in:pl,en'
+            'articles_lang' => 'required|in:' . implode(',' , array_keys(config('languages')))
         ];
     }
 }

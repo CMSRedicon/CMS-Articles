@@ -17,8 +17,9 @@ class CreateArticlesSeoTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('articles_description_id');
             $table->foreign('articles_description_id')->references('id')->on('articles_description')->onDelete('cascade');
-            $table->enum('type',['title', 'meta', 'keywords']);
-            $table->longText('content');
+            $table->text('title')->nullable();
+            $table->text('meta')->nullable();
+            $table->text('keywords')->nullable();
             $table->timestamps();
         });
     }

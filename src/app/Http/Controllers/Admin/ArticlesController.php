@@ -63,18 +63,21 @@ class ArticlesController extends Controller
 
             if(!$this->articlesRepo->store($data)){
                 DB::rollback();
+                dd($e);
                 return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors(),null));
             }
                             
 
         }catch(\PDOException $e){
-            app('sentry')->captureException($e);
+           // app('sentry')->captureException($e);
             DB::rollback();
+            dd($e);
             return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
 
         }catch(\Exception $e){
-            app('sentry')->captureException($e);
+            //app('sentry')->captureException($e);
             DB::rollback();
+            dd($e);
             return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
 
         }

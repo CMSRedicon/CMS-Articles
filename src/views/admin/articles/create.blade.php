@@ -79,39 +79,39 @@
 
               <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('articles_description_seo_content[title]', 'Title(tytuł linka)*', ['class' => 'control-label']) !!}
-                    {!! Form::text('articles_description_seo_content[title]',old('articles_description_seo_content.title') ,['class' => 'form-control']) !!}
+                    {!! Form::label('articles_seo_title', 'Title(tytuł linka)', ['class' => 'control-label']) !!}
+                    {!! Form::text('articles_seo_title',old('articles_seo_title') ,['class' => 'form-control']) !!}
                   
                     <p class="help-block"></p>
-                    @if($errors->has('articles_description_seo_content.title'))
+                    @if($errors->has('articles_seo_title'))
                         <p class="help-block">
-                            {{ $errors->first('articles_description_seo_content.title') }}
+                            {{ $errors->first('articles_seo_title') }}
                         </p>
                     @endif
                 </div>
             </div>
               <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('articles_description_seo_content[meta]', 'Meta (tagi)*', ['class' => 'control-label']) !!}
-                    {!! Form::text('articles_description_seo_content[meta]',old('articles_description_seo_content.meta') ,['class' => 'form-control']) !!}
+                    {!! Form::label('articles_seo_meta', 'Meta', ['class' => 'control-label']) !!}
+                    {!! Form::text('articles_seo_meta',old('articles_seo_meta') ,['class' => 'form-control']) !!}
                   
                     <p class="help-block"></p>
-                    @if($errors->has('articles_description_seo_content.meta'))
+                    @if($errors->has('articles_seo_meta'))
                         <p class="help-block">
-                            {{ $errors->first('articles_description_seo_content.meta') }}
+                            {{ $errors->first('articles_seo_meta') }}
                         </p>
                     @endif
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('articles_description_seo_content[keywords]', 'Słowa kluczowe*', ['class' => 'control-label']) !!}
-                    {!! Form::text('articles_description_seo_content[keywords]',old('articles_description_seo_content.keywords') ,['class' => 'form-control']) !!}
+                    {!! Form::label('articles_seo_keywords', 'Słowa kluczowe', ['class' => 'control-label']) !!}
+                    {!! Form::text('articles_seo_keywords',old('articles_seo_keywords') ,['class' => 'form-control']) !!}
                   
                     <p class="help-block"></p>
-                    @if($errors->has('articles_description_seo_content.keywords'))
+                    @if($errors->has('articles_seo_keywords'))
                         <p class="help-block">
-                            {{ $errors->first('articles_description_seo_content.keywords') }}
+                            {{ $errors->first('articles_seo_keywords') }}
                         </p>
                     @endif
                 </div>

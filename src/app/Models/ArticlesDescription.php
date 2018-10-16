@@ -16,6 +16,6 @@ class ArticlesDescription extends Model
    }
 
    public function ArticlesSeo(){
-       return $this->hasMany(ArticlesSeo::class, 'id', 'articles_description_id');
+       return $this->hasOne(ArticlesSeo::class, 'articles_description_id', 'id');
    }
 }

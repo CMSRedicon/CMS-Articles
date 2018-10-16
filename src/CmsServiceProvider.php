@@ -2,6 +2,8 @@
 
 namespace Redicon\CMS_Articles;
 use Artisan;
+use App\Repositories\FileRepo;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
@@ -47,8 +49,12 @@ class CmsServiceProvider extends ServiceProvider
         //pliki artykułu - zdjęcie główne
         $this->app->config['filesystems.disks.articles'] = array(
             'driver' => 'local',
-            'root' => storage_path('articles')
+            'root' => storage_path('app/articles')
         );
 
+        //stworzenie folderu
+        if (!Storage::has('articles')) {
+            Storage::makeDirectory('articles');
+        }
     }
 }
