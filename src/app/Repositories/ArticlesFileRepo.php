@@ -21,10 +21,14 @@ class ArticlesFileRepo
     public static function saveArticleImage(int $article_id, int $article_description_id, UploadedFile $file)
     {
         $path = $article_id . '/' . $article_description_id;
+        
         $helper = new FileRepo(self::DISK);
-        $helper->checkAndMakeDir($article_id . '/' . $article_description_id);
-        Storage::disk(self::DISK)->put($path . '/' . $file->getClientOriginalName(), $file);
-        return $path . '/' . $file->getClientOriginalName();
+        $helper->checkAndMakeDir($path);
+
+        $filename = $file->getClientOriginalName();
+        $file->storeAs($path, $filename, self::DISK);
+
+        return $path . '/' . $filename;
     }
 
 }
