@@ -3,9 +3,79 @@
 @include('cms_articles_partials::javascripts')
 @section('content')
     <h3 class="page-title">@lang('cms_articles_lang::articles.articles_title')</h3>
-    <p>
-        <a href="{{ route('admin.articles.create') }}" class="btn btn-success">Dodaj</a>
-    </p>
+
+    <div class="panel panel-default">
+        <div class="panel panel-heading">
+            Dodaj Artykuł
+        </div>
+        <div class="panel-body">
+            
+            {!! Form::open(['method' => 'POST', 'route' => 'admin.articles.store']) !!}
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('name', 'Tytuł*', ['class' => 'control-label']) !!}
+                     {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                  
+                    <p class="help-block"></p>
+                    @if($errors->has('name'))
+                        <p class="help-block">
+                            {{ $errors->first('name') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+ 
+             <div class="row">
+                <div class="col-xs-12 form-group">
+                    
+                    {!! Form::label('is_public', 'Strona publiczna ?', ['class' => 'control-label']) !!}
+                    {!! Form::radio('is_public', 1, true) !!}
+                    {!! Form::radio('is_public', 0, false) !!}
+                  
+                    <p class="help-block"></p>
+                    @if($errors->has('is_public'))
+                        <p class="help-block">
+                            {{ $errors->first('is_public') }}
+                        </p>
+                    @endif
+                   
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    
+                    {!! Form::label('article_category_id', 'Wybierz kategorię', ['class' => 'control-label']) !!}
+                    <br>
+                        @if(!empty($articlesCategories))
+                            @foreach ($articlesCategories as $id => $name)
+                                <label class="control-label">{{$name}}</label>
+                                {!! Form::radio('article_category_id', $id, $loop->first ? true : false) !!}
+                                <br>
+                            @endforeach
+
+                        @endif
+
+                        <a href="{{route('admin.articles.categories.create')}}">Dodaj nową kategorię</a>
+                 
+                    <p class="help-block"></p>
+                    @if($errors->has('article_category_id'))
+                        <p class="help-block">
+                            {{ $errors->first('article_category_id') }}
+                        </p>
+                    @endif
+                   
+                </div>
+            </div>          
+                
+            {!! Form::submit('Zapisz', ['class' => 'btn btn-danger']) !!}           
+            
+            {!! Form::close() !!}
+            
+
+        </div>
+    </div>
 
     <div class="panel panel-default">
         <div class="panel-heading">

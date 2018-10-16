@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->integer('parent_id')->nullable();
             $table->unsignedInteger('article_category_id');
             $table->foreign('article_category_id')->references('id')->on('articles_categories')->onDelete('cascade');
-            $table->longText('template');
+            $table->longText('template')->nullable();
             $table->boolean('in_menu')->default(1);
             $table->boolean('is_public')->default(1);
             $table->integer('order');

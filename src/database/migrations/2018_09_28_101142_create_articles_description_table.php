@@ -21,7 +21,7 @@ class CreateArticlesDescriptionTable extends Migration
             $table->string('lang',3);
             $table->string('name',1000);
             $table->text('lead')->nullable();
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('link',1000)->nullable();
             $table->string('img_src',1000)->nullable();
             $table->timestamps();

@@ -69,22 +69,35 @@ class ArticlesRepo
             $this->errors[] = "Brak danych!";
             return false;
         }
+        $data['lang'] = 'pl';
+        $data['order'] = (Articles::all()->pluck('order')->max() ?? 0) + 1;
 
-        $article = Articles::create([
-            'parent_id' => null, //todo
-            'article_category_id' => $data['article_category_id'],
-            'in_menu' => 1,
-            'is_public' => !empty($data['articles_is_public']) ? 1 : 0,
-            'template' => 'default',
-            'order' => $data['articles_order'],
-        ]);
+        $article = Articles::create($data);
+        $article->ArticlesDescription()->create($data);
+ 
+        return true;
+    }
+    /**
+     * Zapis artykułu
+     *
+     * @param array $data
+     * @return boolean
+     */
+    public function descriptionStore(array $data, Articles $article): bool
+    {
 
+        if (empty($data)) {
+            $this->errors[] = "Brak danych!";
+            return false;
+        }
+
+ 
         $articlesDescription = $article->ArticlesDescription()->create([
-            'slug' => $data['articles_description_slug'] ?? null,
+            'slug' => $data['slug'] ?? null,
             'lang' => $data['articles_lang'],
-            'name' => $data['articles_description_name'] ?? null,
-            'lead' => $data['articles_description_lead'] ?? null,
-            'description' => $data['articles_description_description'] ?? null,
+            'name' => $data['name'] ?? null,
+            'lead' => $data['lead'] ?? null,
+            'description' => $data['description'] ?? null,
         ]);
 
         if (!empty($data['articles_seo_title']) || !empty($data['articles_seo_meta']) || !empty($data['articles_seo_keywords'])) {
@@ -95,9 +108,9 @@ class ArticlesRepo
             ]);
         }
 
-        if (!empty($data['articles_description_img_src'])) {
+        if (!empty($data['img_src'])) {
             $path = $article->id . '/' . $articlesDescription->id .'/' . $data['articles_lang'];
-            $articlesDescriptionImgSrc = $this->articles_file_repo->saveArticleImage($path, $data['articles_description_img_src']);
+            $articlesDescriptionImgSrc = $this->articles_file_repo->saveArticleImage($path, $data['img_src']);
             $articlesDescription->img_src = $articlesDescriptionImgSrc;
             $articlesDescription->save();
         }

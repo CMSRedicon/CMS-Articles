@@ -12,7 +12,7 @@
          <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('articles_description_name', 'Tytuł*', ['class' => 'control-label']) !!}
-                     {!! Form::text('articles_description_name', old('articles_description_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '', 'data-cmsr-trigger' => 'updateSlugArticle']) !!}
+                    {!! Form::text('articles_description_name', old('articles_description_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '', 'data-cmsr-trigger' => 'updateSlugArticle']) !!}
                   
                     <p class="help-block"></p>
                     @if($errors->has('articles_description_name'))
@@ -25,7 +25,7 @@
          <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('articles_description_lead', 'Wstęp', ['class' => 'control-label']) !!}
-                     {!! Form::text('articles_description_lead', old('articles_description_lead'), ['class' => 'form-control', 'placeholder' => '']) !!}
+                    {!! Form::text('articles_description_lead', old('articles_description_lead'), ['class' => 'form-control', 'placeholder' => '']) !!}
                   
                     <p class="help-block"></p>
                     @if($errors->has('articles_description_lead'))
@@ -68,9 +68,23 @@
                 </div>
             </div>
 
+
             <h4 class="page-title">SEO</h3>
 
-              <div class="row">
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    Link do wpisu
+                    <br>                    
+                    {!! Form::text('articles_description_slug', old('articles_description_slug'), ['class' => 'form-control', 'id' => 'articles_description_slug','data-choosed-lang' => $lang]) !!}
+                    @if($errors->has('articles_description_slug'))
+                        <p class="help-block">
+                            {{ $errors->first('articles_description_slug') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('articles_seo_title', 'Title(tytuł linka)', ['class' => 'control-label']) !!}
                     {!! Form::text('articles_seo_title',old('articles_seo_title') ,['class' => 'form-control']) !!}
@@ -83,7 +97,7 @@
                     @endif
                 </div>
             </div>
-              <div class="row">
+            <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('articles_seo_meta', 'Meta', ['class' => 'control-label']) !!}
                     {!! Form::text('articles_seo_meta',old('articles_seo_meta') ,['class' => 'form-control']) !!}
@@ -112,90 +126,14 @@
             //todo podgląd
             <br>  
         </div>
-    </div>
-
-    <div class="panel panel-default col-md-4">
-        <div class="panel-heading">
-            Opcje
-        </div>
-        <div class="panel panel-body">
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    
-                    {!! Form::label('articles_is_public', 'Strona publiczna ?', ['class' => 'control-label']) !!}
-                    {!! Form::radio('articles_is_public', 1, true) !!}
-                    {!! Form::radio('articles_is_public', 0, false) !!}
-                  
-                    <p class="help-block"></p>
-                    @if($errors->has('articles_is_public'))
-                        <p class="help-block">
-                            {{ $errors->first('articles_is_public') }}
-                        </p>
-                    @endif
-                   
-                </div>
-            </div>
-
-        <div class="panel panel-body">
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    
-                    {!! Form::label('article_category_id', 'Wybierz kategorię', ['class' => 'control-label']) !!}
-                    <br>
-                        @if(!empty($articlesCategories))
-                            @foreach ($articlesCategories as $id => $name)
-                                <label class="control-label">{{$name}}</label>
-                                {!! Form::radio('article_category_id', $id, $article['article_category_id'] == $id ? true : false) !!}
-                                <br>
-                            @endforeach
-
-                        @endif
-
-                        <a href="{{route('admin.articles.categories.create')}}">Dodaj nową kategorię</a>
-                 
-                    <p class="help-block"></p>
-                    @if($errors->has('article_category_id'))
-                        <p class="help-block">
-                            {{ $errors->first('article_category_id') }}
-                        </p>
-                    @endif
-                   
-                </div>
-            </div>
-                <div class="row">
-                    <div class="col-xs-12 form-group">
-                        Wersja językowa
-                        <br>
-                        {!! getArticleLanguageCreateLinks($lang) !!}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 form-group">
-                        Link do wpisu
-                        <br>
-                        
-                        {!! Form::text('articles_description_slug', old('articles_description_slug'), ['class' => 'form-control', 'id' => 'articles_description_slug','data-choosed-lang' => $lang]) !!}
-                        @if($errors->has('articles_description_slug'))
-                            <p class="help-block">
-                                {{ $errors->first('articles_description_slug') }}
-                            </p>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-12 form-group">
-                       Podgląd <br>
-                       //todo
-                    </div>
-                </div>           
-        </div>
-    </div>
+      
+      </div>
+        @include('cms_articles_partials::articles_sidebar')
         
         {!! Form::hidden('articles_lang', $lang, []) !!}
         {!! Form::hidden('articles_description_id', $article['articles_description_id'], []) !!}
         
         {!! Form::submit('Zapisz',  ['class' => 'btn btn-danger']) !!}        
         {!! Form::close() !!}
-        
+       
     @endsection
