@@ -10,6 +10,7 @@ use Redicon\CMS_Articles\App\Models\Articles;
 use Redicon\CMS_Articles\App\Models\ArticlesCategories;
 use Redicon\CMS_Articles\App\Models\ArticlesDescription;
 use Redicon\CMS_Articles\App\Repositories\ArticlesRepo;
+use Redicon\CMS_Articles\App\Http\Request\Admin\UpdateArticlesRequest;
 
 class ArticlesController extends Controller
 {
@@ -115,7 +116,61 @@ class ArticlesController extends Controller
         $article->ArticlesDescription = $article->ArticlesDescription->first();
         $article = $this->articlesRepo->prepareArticleToEditable($article);
 
-        return view('admin_articles::edit', compact('article', 'lang'));
+        $articlesCategories = [];
+        ArticlesCategories::whereHas('ArticlesCategoriesDescription', function ($query) use ($lang) {
+            $query->where('lang', $lang);
+        })->each(function ($item) use (&$articlesCategories) {
+            $articlesCategories[$item->id] = $item->ArticlesCategoriesDescription->first()->name;
+        });
+
+
+        return view('admin_articles::edit', compact('article', 'lang','articlesCategories'));
+
+    }
+
+    /**
+     * Update zasobu
+     *
+     * @param UpdateArticlesRequest $request
+     * @param integer $article_id
+     * @param integer $article_description_id
+     * @return void
+     */
+    public function update(UpdateArticlesRequest $request, int $article_id, int $article_description_id){
+
+        $article = Articles::where('id', $article_id)->whereHas('ArticlesDescription',function($q) use($article_description_id){
+            $q->where('id', $article_description_id);
+        })->firstOrFail();
+
+        $data = $request->all();
+       
+        DB::beginTransaction();
+        
+        try{
+
+            if (!$this->articlesRepo->update($data, $article, $article->ArticlesDescription->first())) {
+                DB::rollback();
+                dd($e);
+                return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
+            }
+
+
+        } catch (\PDOException $e) {
+            // app('sentry')->captureException($e);
+            DB::rollback();
+            dd($e);
+            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
+
+        } catch (\Exception $e) {
+            //app('sentry')->captureException($e);
+            DB::rollback();
+            dd($e);
+            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
+
+        }
+        
+        DB::commit();
+        return redirect()->route('admin.articles.index')->with('success', 'Pomyślnie zapisano !');
 
     }
 

@@ -18,9 +18,9 @@ class ArticlesFileRepo
      * @param UploadedFile $file
      * @return void
      */
-    public static function saveArticleImage(int $article_id, int $article_description_id, UploadedFile $file)
+    public static function saveArticleImage(int $articleId, int $articleDescriptionId, UploadedFile $file)
     {
-        $path = $article_id . '/' . $article_description_id;
+        $path = $articleId . '/' . $articleDescriptionId;
         
         $helper = new FileRepo(self::DISK);
         $helper->checkAndMakeDir($path);
@@ -29,6 +29,17 @@ class ArticlesFileRepo
         $file->storeAs($path, $filename, self::DISK);
 
         return $path . '/' . $filename;
+    }
+
+    /**
+     * Usunięcie pliku
+     *
+     * @param String $pathToDelete
+     * @return void
+     */
+    public static function deleteArticleFiles(String $pathToDelete){
+        $allFiles = Storage::disk(self::DISK)->files($pathToDelete);
+        Storage::disk(self::DISK)->delete($allFiles);
     }
 
 }

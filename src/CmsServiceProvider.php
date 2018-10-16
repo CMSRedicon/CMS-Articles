@@ -49,12 +49,12 @@ class CmsServiceProvider extends ServiceProvider
         //pliki artykułu - zdjęcie główne
         $this->app->config['filesystems.disks.articles'] = array(
             'driver' => 'local',
-            'root' => storage_path('app/articles')
+            'root' => public_path('articles')
         );
 
         //stworzenie folderu
-        if (!Storage::has('articles')) {
-            Storage::makeDirectory('articles');
+        if (!\File::isDirectory(public_path('articles'))) {
+            \File::makeDirectory(public_path('articles'));
         }
     }
 }

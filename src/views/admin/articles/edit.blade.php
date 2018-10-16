@@ -7,7 +7,7 @@
     <div class="panel panel-default col-md-8">
         <div class="panel panel-body">
             
-        {!! Form::model($article, ['method' => 'POST', 'route' => ['admin.articles.update', $article['id']], 'files' => true]) !!}
+        {!! Form::model($article, ['method' => 'POST', 'route' => ['admin.articles.update', 'article_id' => $article['id'], 'articles_description_id' => $article['articles_description_id']], 'files' => true]) !!}
 
          <div class="row">
                 <div class="col-xs-12 form-group">
@@ -38,6 +38,11 @@
          <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('articles_description_img_src', 'Zdjęcie główne', ['class' => 'control-label']) !!}
+
+                    @if(!empty($article['articles_description_img_src']))
+                        <img src="/articles/{{$article['articles_description_img_src']}}" style="max-height:50px;"/>
+                    @endif
+
                     {!! Form::file('articles_description_img_src', ['class' => 'form-control', 'accept'=>'image/*']) !!}
                   
                     <p class="help-block"></p>
@@ -152,7 +157,7 @@
                         @if(!empty($articlesCategories))
                             @foreach ($articlesCategories as $id => $name)
                                 <label class="control-label">{{$name}}</label>
-                                {!! Form::radio('article_category_id', $id, $loop->first ? true : false) !!}
+                                {!! Form::radio('article_category_id', $id, $article['article_category_id'] == $id ? true : false) !!}
                                 <br>
                             @endforeach
 
@@ -200,6 +205,7 @@
     </div>
         
         {!! Form::hidden('articles_lang', $lang, []) !!}
+        {!! Form::hidden('articles_description_id', $article['articles_description_id'], []) !!}
         
         {!! Form::submit('Zapisz',  ['class' => 'btn btn-danger']) !!}        
         {!! Form::close() !!}
