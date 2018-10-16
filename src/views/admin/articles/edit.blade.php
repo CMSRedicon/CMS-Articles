@@ -2,12 +2,12 @@
 @include('cms_articles_partials::head')
 @include('cms_articles_partials::javascripts')
 @section('content')
-    <h3 class="page-title">Dodaj nowy wpis</h3>
+    <h3 class="page-title">Edytuj wpis</h3>
 
     <div class="panel panel-default col-md-8">
         <div class="panel panel-body">
             
-        {!! Form::open(['method' => 'POST', 'route' => ['admin.articles.store'], 'files' => true]) !!}
+        {!! Form::model($article, ['method' => 'POST', 'route' => ['admin.articles.update', $article['id']], 'files' => true]) !!}
 
          <div class="row">
                 <div class="col-xs-12 form-group">

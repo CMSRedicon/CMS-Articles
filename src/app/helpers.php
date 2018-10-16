@@ -1,4 +1,6 @@
 <?php
+
+use Redicon\CMS_Articles\App\Models\ArticlesDescription;
 if(!function_exists('getArticleLanguageEditLinks')){
 
     /**
@@ -72,3 +74,11 @@ if(!function_exists('implodeArrayToHtml')){
     }
 }
 
+if(!function_exists('hasLang')){
+
+    function hasLang($instance, string $context, string $lang){
+        return $instance->{$context}->count() > 0 && $instance->{$context}->where('lang', $lang)->count() > 0;
+    }
+
+
+}

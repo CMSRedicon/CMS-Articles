@@ -39,8 +39,8 @@
                         break;
                     case 'updateSlugArticle':
                         $(this).keyup(function () {
-                            if ($('#articles_seo_slug').length > 0) {
-                                let articleSeoSlug = $('#articles_seo_slug');
+                            if ($('#articles_description_slug').length > 0) {
+                                let articleSeoSlug = $('#articles_description_slug');
                                 if (typeof $(this).val() != undefined && $(this).val() != null && $(this).val() != "") {
                                     let choosedLang = articleSeoSlug.data('choosed-lang');
                                     let slugText = slug.slug($(this).val(), '-');

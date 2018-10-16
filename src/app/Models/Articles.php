@@ -12,6 +12,7 @@ class Articles extends Model
     protected $table = 'articles';
     protected $fillable = ['parent_id', 'article_category_id', 'template', 'in_menu', 'is_public', 'order', 'created_at', 'updated_at'];
     protected $visible = ['id', 'parent_id', 'article_category_id', 'template', 'in_menu', 'is_public', 'order', 'created_at', 'updated_at'];
+    public $single = false;
 
     public function ArticlesCategories()
     {
@@ -26,6 +27,20 @@ class Articles extends Model
     public function ArticlesDescription()
     {
         return $this->hasMany(ArticlesDescription::class, 'article_id', 'id');
+    }
+
+    /**
+     * Filtr po języku
+     *
+     * @param [type] $query
+     * @param [type] $lang
+     * @return void
+     */
+    public function scopeByLanguage($query,$lang){
+ 
+        return $query->whereHas('articlesDescription', function($qq) use($lang){
+            $qq->where('lang', $lang);
+        });
     }
 
     /**
