@@ -14,12 +14,11 @@ class ArticlesDescriptionSeed extends Seeder
     {
        ArticlesDescription::create([
            'article_id' => 1,
-           'slug' => 'pl/testy',
            'lang' => 'pl',
            'name' => "Główny artykuł opis",
            'lead' => 'Nagłówek',
            'description'=> 'Jakiś opis',
-           'link' => 'articles/1',
+           'link' => null,
            'img_src' => null
        ]);
     }

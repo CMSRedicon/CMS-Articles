@@ -17,7 +17,6 @@ class CreateArticlesDescriptionTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->string('slug',1000)->nullable();
             $table->string('lang',3);
             $table->string('name',1000);
             $table->text('lead')->nullable();

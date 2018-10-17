@@ -8,8 +8,8 @@ use Redicon\CMS_Articles\App\Models\ArticlesSeo;
 class ArticlesDescription extends Model
 {
    protected $table = 'articles_description';
-   protected $visible = ['id', 'article_id', 'slug', 'lang', 'name', 'lead', 'description', 'link', 'img_src', 'created_at', 'updated_at'];
-   protected $fillable = ['article_id', 'slug', 'lang', 'name', 'lead', 'description', 'link', 'img_src', 'created_at', 'updated_at'];
+   protected $visible = ['id', 'article_id', 'lang', 'name', 'lead', 'description', 'link', 'img_src', 'created_at', 'updated_at'];
+   protected $fillable = ['article_id', 'lang', 'name', 'lead', 'description', 'link', 'img_src', 'created_at', 'updated_at'];
 
    public function Articles(){
        return $this->belongsTo(Articles::class , 'article_id');

@@ -1,6 +1,7 @@
 <?php
 namespace Redicon\CMS_Articles\App\Repositories;
 
+use App\Models\GlobalSeo;
 use Illuminate\Support\Collection;
 use Redicon\CMS_Articles\App\Models\Articles;
 use Redicon\CMS_Articles\App\Models\ArticlesCategories;
@@ -49,31 +50,6 @@ class ArticlesRepo
     }
 
     /**
-     * Przepisuje nazwy zmiennych
-     *
-     * @param Article $article
-     * @return Collection
-     */
-    public function prepareArticleToEditable(Articles $article): Collection
-    {
-
-        $tmp = collect($article->toArray());
-        $tmp->put('name', $article->ArticlesDescription->name);
-        $tmp->put('lead', $article->ArticlesDescription->lead);
-        $tmp->put('slug', $article->ArticlesDescription->slug);
-        $tmp->put('img_src', $article->ArticlesDescription->img_src);
-        $tmp->put('description', $article->ArticlesDescription->description);
-        $tmp->put('articles_seo_title', $article->ArticlesDescription->ArticlesSeo->title ?? null);
-        $tmp->put('articles_seo_meta', $article->ArticlesDescription->ArticlesSeo->meta ?? null);
-        $tmp->put('articles_seo_keywords', $article->ArticlesDescription->ArticlesSeo->keywords ?? null);
-        $tmp->put('is_public', $article->is_public);
-        $tmp->put('article_category_id', $article->article_category_id);
-        $tmp->put('articles_description_id', $article->ArticlesDescription->id);
-
-        return $tmp;
-    }
-
-    /**
      * Zapis artykułu
      *
      * @param array $data
@@ -88,9 +64,21 @@ class ArticlesRepo
         }
         $data['lang'] = 'pl';
         $data['order'] = (Articles::all()->pluck('order')->max() ?? 0) + 1;
-        $data['slug'] = '/pl/' . str_slug($data['name'], '-');
+     
         $article = Articles::create($data);
-        $article->ArticlesDescription()->create($data);
+        $articleDescription = $article->ArticlesDescription()->create($data);
+
+        $slug = '/pl/' . str_slug($data['name'], '-');
+
+        GlobalSeo::create([
+            'slug' => $slug,
+            'instance' => ArticlesDescription::class,
+            'vars' => array(
+                'id' => $articleDescription->id,
+                'article_id' => $articleDescription->article_id,
+                'lang' => $articleDescription->lang,
+            )
+        ]);
 
         return true;
     }
@@ -109,7 +97,6 @@ class ArticlesRepo
         }
 
         $articlesDescription = $article->ArticlesDescription()->create([
-            'slug' => $data['slug'] ?? null,
             'lang' => $data['articles_lang'],
             'name' => $data['name'] ?? null,
             'lead' => $data['lead'] ?? null,
@@ -172,10 +159,6 @@ class ArticlesRepo
 
         if (isset($data['lead'])) {
             $articlesDescription->lead = $data['lead'];
-        }
-
-        if (isset($data['slug'])) {
-            $articlesDescription->slug = $data['slug'];
         }
 
         if (isset($data['name'])) {
