@@ -189,17 +189,15 @@ class ArticlesRepo
             }
             $articlesDescription->img_src = $this->articles_file_repo->saveArticleImage($path, $data['img_src']);
         }
- 
 
-            $articlesDescription->ArticlesSeo()->updateOrCreate(
-                ['articles_description_id' => $articlesDescription->id],
-                [
-                    'title' => !empty($data['articles_seo_title']) ? $data['articles_seo_title'] : null,
-                    'meta' => !empty($data['articles_seo_meta']) ? $data['articles_seo_meta'] : null,
-                    'keywords' => !empty($data['articles_seo_keywords']) ? $data['articles_seo_keywords'] : null,
-                ]
-            );
- 
+        $articlesDescription->ArticlesSeo()->updateOrCreate(
+            ['articles_description_id' => $articlesDescription->id],
+            [
+                'title' => !empty($data['articles_seo_title']) ? $data['articles_seo_title'] : null,
+                'meta' => !empty($data['articles_seo_meta']) ? $data['articles_seo_meta'] : null,
+                'keywords' => !empty($data['articles_seo_keywords']) ? $data['articles_seo_keywords'] : null,
+            ]
+        );
 
         $article->save();
         $articlesDescription->save();
