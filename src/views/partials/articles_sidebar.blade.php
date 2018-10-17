@@ -1,7 +1,7 @@
 
     <div class="panel panel-default col-md-4">
         <div class="panel-heading">
-            Opcje
+            Opcje Artykułu
         </div>
         <div class="panel panel-body">
          <div class="row">

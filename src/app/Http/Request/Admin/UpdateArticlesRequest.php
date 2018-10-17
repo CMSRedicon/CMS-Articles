@@ -24,11 +24,11 @@ class UpdateArticlesRequest extends FormRequest
     public function rules()
     {
         return [
-            'articles_description_name' => 'required',
-            'articles_description_lead' => 'nullable',
-            'articles_description_img_src' => 'nullable|max:4098',
+            'name' => 'required',
+            'lead' => 'nullable',
+            'img_src' => 'nullable|max:4098',
             'article_category_id' => 'required|exists:articles_categories,id',
-            'articles_description_slug' => 'required',
+            'slug' => 'required',
             'articles_lang' => 'required|in:' . implode(',' , array_keys(config('languages')))
         ];
     }

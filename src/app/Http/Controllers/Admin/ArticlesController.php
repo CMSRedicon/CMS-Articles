@@ -160,18 +160,11 @@ class ArticlesController extends Controller
             return redirect()->action('\\' . ArticlesController::class . '@create', ['article_id' => $articleId,'lang' => $lang]);
         }
 
-        $article = Articles::byLanguage($lang)->where('id', $articleId)->firstOrFail();
-        $article->ArticlesDescription = $article->ArticlesDescription->first();
-        $article = $this->articlesRepo->prepareArticleToEditable($article);
-
-        $articlesCategories = [];
-        ArticlesCategories::whereHas('ArticlesCategoriesDescription', function ($query) use ($lang) {
-            $query->where('lang', $lang);
-        })->each(function ($item) use (&$articlesCategories) {
-            $articlesCategories[$item->id] = $item->ArticlesCategoriesDescription->first()->name;
-        });
-
-        return view('admin_articles::edit', compact('article', 'lang', 'articlesCategories'));
+        $articlesDescription = ArticlesDescription::where('article_id', $articleId)->where('lang', $lang)->firstOrFail();
+        $articlesCategories = $this->articlesRepo->getArticlesCategories($lang);
+        $articlesSeo = $articlesDescription->ArticlesSeo->toArray() ?? array();
+ 
+        return view('admin_articles::edit', compact('article', 'articlesDescription' ,'lang', 'articlesCategories', 'articlesSeo'));
 
     }
 

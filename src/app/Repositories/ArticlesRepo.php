@@ -3,6 +3,7 @@ namespace Redicon\CMS_Articles\App\Repositories;
 
 use Illuminate\Support\Collection;
 use Redicon\CMS_Articles\App\Models\Articles;
+use Redicon\CMS_Articles\App\Models\ArticlesCategories;
 use Redicon\CMS_Articles\App\Models\ArticlesDescription;
 
 /**
@@ -31,6 +32,23 @@ class ArticlesRepo
     }
 
     /**
+     * Pobiera kategorie per lang
+     *
+     * @param String $lang
+     * @return array
+     */
+    public function getArticlesCategories(String $lang): array
+    {
+        $articlesCategories = [];
+        ArticlesCategories::whereHas('ArticlesCategoriesDescription', function ($query) use ($lang) {
+            $query->where('lang', $lang);
+        })->each(function ($item) use (&$articlesCategories) {
+            $articlesCategories[$item->id] = $item->ArticlesCategoriesDescription->first()->name;
+        });
+        return $articlesCategories;
+    }
+
+    /**
      * Przepisuje nazwy zmiennych
      *
      * @param Article $article
@@ -40,17 +58,16 @@ class ArticlesRepo
     {
 
         $tmp = collect($article->toArray());
-        $tmp->put('articles_description_name', $article->ArticlesDescription->name);
-        $tmp->put('articles_description_lead', $article->ArticlesDescription->lead);
-        $tmp->put('articles_description_img_src', $article->ArticlesDescription->img_src);
-        $tmp->put('articles_order', $article->order);
-        $tmp->put('articles_description_description', $article->ArticlesDescription->description);
+        $tmp->put('name', $article->ArticlesDescription->name);
+        $tmp->put('lead', $article->ArticlesDescription->lead);
+        $tmp->put('slug', $article->ArticlesDescription->slug);
+        $tmp->put('img_src', $article->ArticlesDescription->img_src);
+        $tmp->put('description', $article->ArticlesDescription->description);
         $tmp->put('articles_seo_title', $article->ArticlesDescription->ArticlesSeo->title ?? null);
         $tmp->put('articles_seo_meta', $article->ArticlesDescription->ArticlesSeo->meta ?? null);
         $tmp->put('articles_seo_keywords', $article->ArticlesDescription->ArticlesSeo->keywords ?? null);
-        $tmp->put('articles_is_public', $article->is_public);
+        $tmp->put('is_public', $article->is_public);
         $tmp->put('article_category_id', $article->article_category_id);
-        $tmp->put('articles_description_slug', $article->ArticlesDescription->slug);
         $tmp->put('articles_description_id', $article->ArticlesDescription->id);
 
         return $tmp;
@@ -71,10 +88,10 @@ class ArticlesRepo
         }
         $data['lang'] = 'pl';
         $data['order'] = (Articles::all()->pluck('order')->max() ?? 0) + 1;
-
+        $data['slug'] = '/pl/' . str_slug($data['name'], '-');
         $article = Articles::create($data);
         $article->ArticlesDescription()->create($data);
- 
+
         return true;
     }
     /**
@@ -91,7 +108,6 @@ class ArticlesRepo
             return false;
         }
 
- 
         $articlesDescription = $article->ArticlesDescription()->create([
             'slug' => $data['slug'] ?? null,
             'lang' => $data['articles_lang'],
@@ -100,16 +116,18 @@ class ArticlesRepo
             'description' => $data['description'] ?? null,
         ]);
 
-        if (!empty($data['articles_seo_title']) || !empty($data['articles_seo_meta']) || !empty($data['articles_seo_keywords'])) {
-            $articlesDescription->ArticlesSeo()->create([
-                'title' => $data['articles_seo_title'] ?? null,
-                'meta' => $data['articles_seo_meta'] ?? null,
-                'keywords' => $data['articles_seo_keywords'] ?? null,
-            ]);
+        if (isset($data['articles_seo_title']) || isset($data['articles_seo_meta']) || isset($data['articles_seo_keywords'])) {
+            $articlesDescription->ArticlesSeo()->updateOrCreate(
+                ['articles_description_id' => $articlesDescription->id],
+                [
+                    'title' => !empty($data['articles_seo_title']) ? $data['articles_seo_title'] : null,
+                    'meta' => !empty($data['articles_seo_meta']) ? $data['articles_seo_meta'] : null,
+                    'keywords' => !empty($data['articles_seo_keywords']) ? $data['articles_seo_keywords'] : null,
+                ]);
         }
 
         if (!empty($data['img_src'])) {
-            $path = $article->id . '/' . $articlesDescription->id .'/' . $data['articles_lang'];
+            $path = $article->id . '/' . $articlesDescription->id . '/' . $data['articles_lang'];
             $articlesDescriptionImgSrc = $this->articles_file_repo->saveArticleImage($path, $data['img_src']);
             $articlesDescription->img_src = $articlesDescriptionImgSrc;
             $articlesDescription->save();
@@ -135,7 +153,7 @@ class ArticlesRepo
         if (isset($data['articles_is_public'])) {
             $article->is_public = $data['articles_is_public'];
         }
- 
+
         if (isset($data['parent_id'])) {
             $article->parent_id = $data['parent_id'];
         }
@@ -148,49 +166,43 @@ class ArticlesRepo
             $article->in_menu = $data['in_menu'];
         }
 
-        if (isset($data['articles_description_description'])) {
-            $articlesDescription->description = $data['articles_description_description'];
+        if (isset($data['description'])) {
+            $articlesDescription->description = $data['description'];
         }
 
-        if (isset($data['articles_description_slug'])) {
-            $articlesDescription->slug = $data['articles_description_slug'];
+        if (isset($data['lead'])) {
+            $articlesDescription->lead = $data['lead'];
         }
 
-        if (isset($data['articles_description_name'])) {
-            $articlesDescription->name = $data['articles_description_name'];
+        if (isset($data['slug'])) {
+            $articlesDescription->slug = $data['slug'];
         }
 
-        if (!empty($data['articles_description_img_src'])) {
+        if (isset($data['name'])) {
+            $articlesDescription->name = $data['name'];
+        }
+
+        if (!empty($data['img_src'])) {
             $path = $article->id . '/' . $articlesDescription->id . '/' . $articlesDescription->lang;
-
             if (!empty($articlesDescription->img_src)) {
                 $this->articles_file_repo->deleteArticleFiles($path);
             }
-            $articlesDescription->img_src = $this->articles_file_repo->saveArticleImage($path, $data['articles_description_img_src']);
+            $articlesDescription->img_src = $this->articles_file_repo->saveArticleImage($path, $data['img_src']);
         }
+ 
 
-        if (!empty($data['articles_seo_title']) || !empty($data['articles_seo_meta']) || !empty($data['articles_seo_keywords'])) {
-
-            if(empty($articlesDescription->ArticlesSeo)){
-                $articlesDescription->ArticlesSeo()->create([
-                    'title' => $data['articles_seo_title'] ?? null,
-                    'meta' => $data['articles_seo_meta'] ?? null,
-                    'keywords' => $data['articles_seo_keywords'] ?? null,
-                ]);
-            }else{
-                $articlesDescription->ArticlesSeo()->update([
-                    'title' => $data['articles_seo_title'] ?? null,
-                    'meta' => $data['articles_seo_meta'] ?? null,
-                    'keywords' => $data['articles_seo_keywords'] ?? null,
-                ]);
-            }
-        }else{
-            $articlesDescription->ArticlesSeo()->delete();
-        }
+            $articlesDescription->ArticlesSeo()->updateOrCreate(
+                ['articles_description_id' => $articlesDescription->id],
+                [
+                    'title' => !empty($data['articles_seo_title']) ? $data['articles_seo_title'] : null,
+                    'meta' => !empty($data['articles_seo_meta']) ? $data['articles_seo_meta'] : null,
+                    'keywords' => !empty($data['articles_seo_keywords']) ? $data['articles_seo_keywords'] : null,
+                ]
+            );
+ 
 
         $article->save();
         $articlesDescription->save();
-
         return true;
     }
 
