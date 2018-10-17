@@ -24,6 +24,11 @@ class ArticlesController extends Controller
         $this->articlesRepo = new ArticlesRepo();
     }
 
+    /**
+     * Główny index
+     *
+     * @return void
+     */
     public function index()
     {
         $articles = Articles::all();
@@ -37,6 +42,12 @@ class ArticlesController extends Controller
         return view('admin_articles::index', compact('articles', 'articlesCategories'));
     }
 
+    /**
+     * Zapis do article
+     *
+     * @param StoreArticlesRequest $request
+     * @return void
+     */
     public function store(StoreArticlesRequest $request)
     {
 
@@ -98,7 +109,7 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Zapis artykułu
+     * Zapis articles_description
      *
      * @param StoreArticlesRequest $request
      * @return void
@@ -137,10 +148,8 @@ class ArticlesController extends Controller
 
     }
     
-    // }
-
     /**
-     * TODO
+     * 
      * Edycja artykułu
      *
      * @param integer $article_id
@@ -219,6 +228,24 @@ class ArticlesController extends Controller
         DB::commit();
         return redirect()->route('admin.articles.index')->with('success', 'Pomyślnie zapisano !');
 
+    }
+
+    /**
+     * Usuwanie
+     *
+     * @param integer $articleId
+     * @return void
+     */
+    public function delete(int $articleId){
+
+        $article = Articles::where('id', $articleId)->firstOrFail();
+
+        if(!empty($article->ArticlesDescription)){
+            GlobalSeo::removeSlugs($article->ArticlesDescription);
+        }
+        
+        $article->delete();
+        return redirect()->route('admin.articles.index')->with('success', 'Pomyślnie usunięto !');
     }
 
 }
