@@ -2,6 +2,7 @@
 
 namespace Redicon\CMS_Articles\App\Http\Controllers\Admin;
 
+use App\Models\GlobalSeo;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Redicon\CMS_Articles\App\Models\Articles;
@@ -162,9 +163,15 @@ class ArticlesController extends Controller
 
         $articlesDescription = ArticlesDescription::where('article_id', $articleId)->where('lang', $lang)->firstOrFail();
         $articlesCategories = $this->articlesRepo->getArticlesCategories($lang);
-        $articlesSeo = $articlesDescription->ArticlesSeo->toArray() ?? array();
- 
-        return view('admin_articles::edit', compact('article', 'articlesDescription' ,'lang', 'articlesCategories', 'articlesSeo'));
+        $articlesSeo = !empty($articlesDescription->ArticlesSeo) ? $articlesDescription->ArticlesSeo->toArray() : array();
+        
+        if(!empty($articlesSlug = GlobalSeo::slugs($articlesDescription)->first())){
+            $articlesSlug = $articlesSlug->toArray();
+        }else{
+            $articlesSlug = array();
+        }
+  
+        return view('admin_articles::edit', compact('article', 'articlesDescription' ,'lang', 'articlesCategories', 'articlesSeo', 'articlesSlug'));
 
     }
 

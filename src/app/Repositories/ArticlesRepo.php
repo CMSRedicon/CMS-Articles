@@ -2,7 +2,6 @@
 namespace Redicon\CMS_Articles\App\Repositories;
 
 use App\Models\GlobalSeo;
-use Illuminate\Support\Collection;
 use Redicon\CMS_Articles\App\Models\Articles;
 use Redicon\CMS_Articles\App\Models\ArticlesCategories;
 use Redicon\CMS_Articles\App\Models\ArticlesDescription;
@@ -64,7 +63,7 @@ class ArticlesRepo
         }
         $data['lang'] = 'pl';
         $data['order'] = (Articles::all()->pluck('order')->max() ?? 0) + 1;
-     
+
         $article = Articles::create($data);
         $articleDescription = $article->ArticlesDescription()->create($data);
 
@@ -72,12 +71,9 @@ class ArticlesRepo
 
         GlobalSeo::create([
             'slug' => $slug,
-            'instance' => ArticlesDescription::class,
-            'vars' => array(
-                'id' => $articleDescription->id,
-                'article_id' => $articleDescription->article_id,
-                'lang' => $articleDescription->lang,
-            )
+            'instance' => get_class($articleDescription),
+            'instance_id' => $articleDescription->id,
+            'lang' => $articleDescription->lang,
         ]);
 
         return true;
@@ -118,6 +114,15 @@ class ArticlesRepo
             $articlesDescriptionImgSrc = $this->articles_file_repo->saveArticleImage($path, $data['img_src']);
             $articlesDescription->img_src = $articlesDescriptionImgSrc;
             $articlesDescription->save();
+        }
+
+        if (!empty($data['slug'])) {
+            GlobalSeo::create([
+                'slug' => $data['slug'],
+                'instance' => get_class($articlesDescription),
+                'instance_id' => $articlesDescription->id,
+                'lang' => $articlesDescription->lang,
+            ]);
         }
 
         return true;
@@ -181,6 +186,16 @@ class ArticlesRepo
                 'keywords' => !empty($data['articles_seo_keywords']) ? $data['articles_seo_keywords'] : null,
             ]
         );
+
+        if(!empty($data['slug'])){
+            GlobalSeo::slugs($articlesDescription)->updateOrCreate([
+                'instance_id' => $articlesDescription->id,
+                'lang' => $articlesDescription->lang,
+                'instance' => get_class($articlesDescription)
+            ],[
+                'slug' => $data['slug']
+            ]);
+        }
 
         $article->save();
         $articlesDescription->save();

@@ -75,7 +75,7 @@
                 <div class="col-xs-12 form-group">
                     Link do wpisu
                     <br>                    
-                    {!! Form::text('slug', old('slug'), ['class' => 'form-control', 'id' => 'articles_description_slug','data-choosed-lang' => $lang]) !!}
+                    {!! Form::text('slug', old('slug') ? old('slug') : $articlesSlug['slug'] ?? null, ['class' => 'form-control', 'id' => 'articles_description_slug','data-choosed-lang' => $lang]) !!}
                     @if($errors->has('slug'))
                         <p class="help-block">
                             {{ $errors->first('slug') }}
