@@ -16,9 +16,8 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id')->nullable();
-            $table->unsignedInteger('article_category_id');
-            $table->foreign('article_category_id')->references('id')->on('articles_categories')->onDelete('cascade');
-            $table->longText('template')->nullable();
+            $table->unsignedInteger('article_category_id')->nullable();
+            $table->foreign('article_category_id')->references('id')->on('articles_categories')->onDelete('set null');
             $table->boolean('in_menu')->default(1);
             $table->boolean('is_public')->default(1);
             $table->integer('order');

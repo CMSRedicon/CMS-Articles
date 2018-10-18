@@ -10,8 +10,8 @@ use Redicon\CMS_Articles\App\Models\ArticlesLogs;
 class Articles extends Model
 {
     protected $table = 'articles';
-    protected $fillable = ['parent_id', 'article_category_id', 'template', 'in_menu', 'is_public', 'order', 'created_at', 'updated_at'];
-    protected $visible = ['id', 'parent_id', 'article_category_id', 'template', 'in_menu', 'is_public', 'order', 'created_at', 'updated_at'];
+    protected $fillable = ['parent_id', 'article_category_id', 'in_menu', 'is_public', 'order', 'created_at', 'updated_at'];
+    protected $visible = ['id', 'parent_id', 'article_category_id', 'in_menu', 'is_public', 'order', 'created_at', 'updated_at'];
     public $single = false;
 
     public function ArticlesCategories()

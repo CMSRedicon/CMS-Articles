@@ -27,7 +27,7 @@ class UpdateArticlesRequest extends FormRequest
             'name' => 'required',
             'lead' => 'nullable',
             'img_src' => 'nullable|max:4098',
-            'article_category_id' => 'required|exists:articles_categories,id',
+            'article_category_id' => 'nullable|exists:articles_categories,id',
             'slug' => 'required',
             'articles_lang' => 'required|in:' . implode(',' , array_keys(config('languages')))
         ];

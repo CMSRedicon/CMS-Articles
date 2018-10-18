@@ -15,7 +15,6 @@ class ArticlesSeed extends Seeder
         Articles::create([
             'parent_id' => null,
             'article_category_id' => 1,
-            'template' => '<div><h1>Główny Artykuł</h1></div>',
             'in_menu' => 1,
             'is_public' => 1,
             'order' => 1,

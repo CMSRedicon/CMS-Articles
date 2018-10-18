@@ -9,28 +9,11 @@ use Redicon\CMS_Articles\App\Models\ArticlesDescription;
 /**
  * Logika dla paczki
  */
-class ArticlesRepo
+class ArticlesRepo extends Repositories
 {
-
-    private $errors;
-    private $articles_file_repo;
-    public function __construct()
-    {
-        $this->errors = array();
-        $this->articles_file_repo = new ArticlesFileRepo();
-
+    public function __construct(){
+        parent::__construct();
     }
-
-    /**
-     * Zwraca błędy
-     *
-     * @return array
-     */
-    public function getErrors(): array
-    {
-        return $this->errors;
-    }
-
     /**
      * Pobiera kategorie per lang
      *
@@ -111,7 +94,7 @@ class ArticlesRepo
 
         if (!empty($data['img_src'])) {
             $path = $article->id . '/' . $articlesDescription->id . '/' . $data['articles_lang'];
-            $articlesDescriptionImgSrc = $this->articles_file_repo->saveArticleImage($path, $data['img_src']);
+            $articlesDescriptionImgSrc = $this->articlesFileRepo->saveArticleImage($path, $data['img_src']);
             $articlesDescription->img_src = $articlesDescriptionImgSrc;
             $articlesDescription->save();
         }
@@ -173,9 +156,9 @@ class ArticlesRepo
         if (!empty($data['img_src'])) {
             $path = $article->id . '/' . $articlesDescription->id . '/' . $articlesDescription->lang;
             if (!empty($articlesDescription->img_src)) {
-                $this->articles_file_repo->deleteArticleFiles($path);
+                $this->articlesFileRepo->deleteArticleFiles($path);
             }
-            $articlesDescription->img_src = $this->articles_file_repo->saveArticleImage($path, $data['img_src']);
+            $articlesDescription->img_src = $this->articlesFileRepo->saveArticleImage($path, $data['img_src']);
         }
 
         $articlesDescription->ArticlesSeo()->updateOrCreate(
