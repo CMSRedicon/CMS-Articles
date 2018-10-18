@@ -19,6 +19,8 @@ Route::group(['middleware' => ['web','auth', 'language']], function () {
     Route::get('/admin/articles/categories/edit/{article_cat_description_id}', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController@edit')->name('admin.articles.categories.edit');
     Route::post('/admin/articles/categories/update/{article_cat_description_id}', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController@update')->name('admin.articles.categories.update');
     Route::get('/admin/articles/categories/delete/{article_cat_description_id}', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController@delete')->name('admin.articles.categories.delete');
+    Route::post('/admin/articles/categories/store', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController@store')->name('admin.articles.categories.store');
+    Route::post('/admin/articles/categories/description/store', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController@descriptionStore')->name('admin.articles.categories.description.store');
 
     /* Ajax */
     Route::post('/ajax/saveArticlesVisibility', 'Redicon\CMS_Articles\App\Http\Controllers\Ajax\AjaxController@saveArticlesVisibility');

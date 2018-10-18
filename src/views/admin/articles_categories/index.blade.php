@@ -4,6 +4,38 @@
 @section('content')
     <h3 class="page-title">Kategorie Artykułów</h3>
  
+ <div class="panel panel-default">
+        <div class="panel panel-heading">
+            Dodaj Artykuł
+        </div>
+        <div class="panel-body">
+            
+            {!! Form::open(['method' => 'POST', 'route' => 'admin.articles.categories.store']) !!}
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('position', 'Pozycja*', ['class' => 'control-label']) !!}
+                     {!! Form::text('position', old('position'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                  
+                    <p class="help-block"></p>
+                    @if($errors->has('position'))
+                        <p class="help-block">
+                            {{ $errors->first('position') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+ 
+           
+                
+            {!! Form::submit('Zapisz', ['class' => 'btn btn-danger']) !!}           
+            
+            {!! Form::close() !!}
+            
+
+        </div>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             Wszystkie Kategorie

@@ -5,9 +5,11 @@ namespace Redicon\CMS_Articles\App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+
 use Redicon\CMS_Articles\App\Models\ArticlesCategories;
 use Redicon\CMS_Articles\App\Repositories\ArticlesCategoriesRepo;
 use Redicon\CMS_Articles\App\Models\ArticlesCategoriesDescription;
+use Redicon\CMS_Articles\App\Http\Request\Admin\StoreArticlesCategoriesRequest;
 use Redicon\CMS_Articles\App\Http\Request\Admin\UpdateArticlesCategoriesRequest;
 
 class ArticlesCategoriesController extends Controller
@@ -29,6 +31,18 @@ class ArticlesCategoriesController extends Controller
         return view('cms_articles_admin_articles_categories::index', compact('articlesCategories'));
     }
 
+    /**
+     * Zapis nowej kategorii
+     *
+     * @param StoreArticlesCategoriesRequest $request
+     * @return void
+     */
+    public function store(StoreArticlesCategoriesRequest $request){
+        $data = $request->all();
+
+        dd($data);
+        
+    }
     /**
      * Edycja
      *
