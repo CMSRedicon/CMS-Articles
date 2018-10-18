@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticlesCategoriesDescriptionSeed::class);
         $this->call(ArticlesSeed::class);
         $this->call(ArticlesDescriptionSeed::class);
+        $this->call(ArticlesSeoSeed::class);
     }
 }

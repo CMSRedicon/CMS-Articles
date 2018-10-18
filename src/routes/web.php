@@ -14,7 +14,8 @@ Route::group(['middleware' => ['web','auth', 'language']], function () {
    
 
     /* Kategorie artykułów */
-    Route::get('/admin/articlescategories/create', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController@create')->name('admin.articles.categories.create');
+    Route::get('/admin/articles/categories', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController@index')->name('admin.articles.categories.index');
+    Route::get('/admin/articles/categories/create', 'Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController@create')->name('admin.articles.categories.create');
 
     /* Ajax */
     Route::post('/ajax/saveArticlesVisibility', 'Redicon\CMS_Articles\App\Http\Controllers\Ajax\AjaxController@saveArticlesVisibility');

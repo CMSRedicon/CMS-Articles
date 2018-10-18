@@ -58,6 +58,8 @@
                         @endif
 
                         <a href="{{route('admin.articles.categories.create')}}">Dodaj nową kategorię</a>
+                        <br>
+                        <a href="{{route('admin.articles.categories.index')}}">Zobacz wszystkie kategorie</a>
                  
                     <p class="help-block"></p>
                     @if($errors->has('article_category_id'))

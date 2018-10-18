@@ -39,7 +39,7 @@ class ArticlesController extends Controller
             $articlesCategories[$item->id] = $item->ArticlesCategoriesDescription->first()->name;
         });
 
-        return view('admin_articles::index', compact('articles', 'articlesCategories'));
+        return view('cms_articles_admin_articles::index', compact('articles', 'articlesCategories'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ArticlesController extends Controller
             $articlesCategories[$item->id] = $item->ArticlesCategoriesDescription->first()->name;
         });
 
-        return view('admin_articles::create', compact('articlesCategories', 'lang','article'));
+        return view('cms_articles_admin_articles::create', compact('articlesCategories', 'lang','article'));
 
     }
 
@@ -180,7 +180,7 @@ class ArticlesController extends Controller
             $articlesSlug = array();
         }
   
-        return view('admin_articles::edit', compact('article', 'articlesDescription' ,'lang', 'articlesCategories', 'articlesSeo', 'articlesSlug'));
+        return view('cms_articles_admin_articles::edit', compact('article', 'articlesDescription' ,'lang', 'articlesCategories', 'articlesSeo', 'articlesSlug'));
 
     }
 

@@ -35,7 +35,8 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Ajax\AjaxController');
 
         //widoki
-        $this->loadViewsFrom(__DIR__.'/views/admin/articles', 'admin_articles');
+        $this->loadViewsFrom(__DIR__.'/views/admin/articles', 'cms_articles_admin_articles');
+        $this->loadViewsFrom(__DIR__.'/views/admin/articles_categories', 'cms_articles_admin_articles_categories');
         $this->loadViewsFrom(__DIR__.'/views/partials', 'cms_articles_partials');
         $this->loadViewsFrom(__DIR__.'/views/menu', 'cms_articles_menu');
 
