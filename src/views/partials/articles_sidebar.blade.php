@@ -30,8 +30,11 @@
                                 {!! Form::radio('article_category_id', $id, $article->article_category_id == $id ? true : false) !!}
                                 <br>
                             @endforeach
+                               <label class="control-label">Brak</label>
+                              {!! Form::radio('article_category_id', false, $article->article_category_id == null ? true : false) !!}
+                              <br>
                         @endif
-
+    
                         <a href="{{route('admin.articles.categories.create')}}">Dodaj nową kategorię</a>
                  
                     <p class="help-block"></p>

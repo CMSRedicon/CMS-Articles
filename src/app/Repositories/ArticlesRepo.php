@@ -133,7 +133,9 @@ class ArticlesRepo extends Repositories
             $article->parent_id = $data['parent_id'];
         }
 
-        if (isset($data['article_category_id'])) {
+        if (empty($data['article_category_id'])) {
+            $article->article_category_id = null;
+        }else{
             $article->article_category_id = $data['article_category_id'];
         }
 
