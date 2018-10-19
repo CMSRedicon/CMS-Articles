@@ -47,36 +47,44 @@
                     <tr>
                         <th>Id</th>
                         <th>Pozycja</th>
-                                  <th>Dodana</th>
-                        <th>Opisy</th>
+                        <th>Dodana</th>
+                        <th>Akcja</th>
               
                     </tr>
                 </thead>
                 
                 <tbody>
                     @if (count($articlesCategories) > 0)
+                       {!! Form::open(['method' => 'POST', 'route' => ['admin.articles.categories.position.update']]) !!}
                         @foreach ($articlesCategories as $category)
                         <tr>
                             <td>{{$category->id}}</td>
-                            <td>{{$category->position}}</td>
-                            <td>{{$category->created_at}}</td>              
+                            <td>{!! Form::text('position['.$category->id.']', old('position.' . $category->id) ? old('position.' . $category->id) : $category->position, []) !!}
+                            <td>{{$category->created_at}}</td>            
+                            <td>
+                                <a href="{{route('admin.articles.categories.delete',[$category->id])}}">Usuń</a>
+                                    {!! getArticleCategoryLanguageCreateLinks($category) !!}
+                                    
+                            </td>
                             <tr>
-                               
-                                    @if(!empty($category->ArticlesCategoriesDescription))
-                                        @foreach ($category->ArticlesCategoriesDescription as $categoryDescription)
-                                            <tr>
-                                                <td colspan="3">
-                                                <td>{{$categoryDescription->id}}</td>
-                                                <td>{{$categoryDescription->name}}</td>
-                                                <td>{{$categoryDescription->lang}}</td>            
-                                                <td><a href="{{route('admin.articles.categories.edit',[$categoryDescription->id])}}">Edytuj</a></td>                            
-                                            </tr>
-                                        @endforeach
-                                    @endif
-             
+                                @if(!empty($category->ArticlesCategoriesDescription->isNotEmpty()))
+                                    @foreach ($category->ArticlesCategoriesDescription as $categoryDescription)
+                                        <tr>
+                                            <td colspan="3">
+                                            <td>{{$categoryDescription->id}}</td>
+                                            <td>{{$categoryDescription->name}}</td>
+                                            <td>{{$categoryDescription->lang}}</td>            
+                                            <td><a href="{{route('admin.articles.categories.edit',[$categoryDescription->id])}}">Edytuj</a></td>                            
+                                            <td><a href="{{route('admin.articles.categories.description.delete',[$categoryDescription->id])}}">Usuń</a></td>                            
+                                        </tr>
+                                    @endforeach
+                                    
+                                @endif
                             </tr>
                         </tr>
                         @endforeach
+                            {!! Form::submit('Zapisz kolejność', []) !!}
+                             {!! Form::close() !!}
                     @else
                         <tr>
                             <td colspan="9">Brak danych</td>

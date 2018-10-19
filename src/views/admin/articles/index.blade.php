@@ -126,6 +126,9 @@
 
                         {!! Form::submit('Zapisz kolejność', []) !!}
                         
+                        {!! Form::close() !!}
+                        
+                        
                     @else
                         <tr>
                             <td colspan="9">Brak danych</td>

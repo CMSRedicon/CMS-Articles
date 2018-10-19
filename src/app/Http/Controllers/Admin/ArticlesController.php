@@ -52,14 +52,12 @@ class ArticlesController extends Controller
     {
 
         $data = $request->all();
-
         DB::beginTransaction();
 
         try {
 
             if (!$this->articlesRepo->store($data)) {
                 DB::rollback();
-    
                 return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
             }
 
@@ -94,7 +92,7 @@ class ArticlesController extends Controller
             $lang = 'pl';
         }
 
-        $article = Articles::where('id', $articleId)->firstOrFail();
+        $article = Articles::findOrFail($articleId);
 
         $articlesCategories = [];
 
@@ -117,7 +115,7 @@ class ArticlesController extends Controller
     public function descriptionStore(StoreArticlesDescriptionRequest $request, int $articleId)
     {
         $data = $request->all();
-        $article = Articles::where('id', $articleId)->firstOrFail();
+        $article = Articles::findOrFail($articleId);
 
         DB::beginTransaction();
 
@@ -163,7 +161,7 @@ class ArticlesController extends Controller
             $lang = 'pl';
         }
 
-        $article = Articles::where('id', $articleId)->firstOrFail();
+        $article = Articles::findOrFail($articleId);
 
         //jeżeli nie ma wersji językowej
         if (!hasLang($article, 'ArticlesDescription', $lang)) {
@@ -238,7 +236,7 @@ class ArticlesController extends Controller
      */
     public function delete(int $articleId){
 
-        $article = Articles::where('id', $articleId)->firstOrFail();
+        $article = Articles::findOrFail($articleId);
 
         if(!empty($article->ArticlesDescription)){
             GlobalSeo::removeSlugs($article->ArticlesDescription);
