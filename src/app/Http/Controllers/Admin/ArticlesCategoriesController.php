@@ -40,8 +40,33 @@ class ArticlesCategoriesController extends Controller
     public function store(StoreArticlesCategoriesRequest $request){
         $data = $request->all();
 
-        dd($data);
         
+        DB::beginTransaction();
+        
+
+        try{
+
+        }catch(\PDOException $e){
+
+
+            
+            DB::rollback();
+            
+
+        }catch(\Exception $e){
+
+
+                
+                DB::rollback();
+                
+
+        }
+
+
+        
+        DB::commit();
+        
+        return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie zapisano!');
     }
     /**
      * Edycja
@@ -72,18 +97,18 @@ class ArticlesCategoriesController extends Controller
 
             if(!$this->articlesCategoriesRepo->update($data, $articleCategoryDescription)){
                 DB::rollback();
-                return redirect()->route('admin.articles.categories.index')->with('error', implodeArrayToHtml($articlesCategoriesRepo->getErrors()));
+                return redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($articlesCategoriesRepo->getErrors()));
             }
 
         }catch(\PDOException $e){
 
             DB::rollback();
-            return redirect()->route('dmin.articles.categories.index')->with('error', implodeArrayToHtml($e->getMessage()));
+            return redirect()->route('dmin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         }catch(\Exception $e){
 
             DB::rollback();
-            return redirect()->route('dmin.articles.categories.index')->with('error', implodeArrayToHtml($e->getMessage()));
+            return redirect()->route('dmin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         }
         

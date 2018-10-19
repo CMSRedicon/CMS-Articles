@@ -59,21 +59,21 @@ class ArticlesController extends Controller
 
             if (!$this->articlesRepo->store($data)) {
                 DB::rollback();
-                dd($e);
-                return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
+    
+                return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
             }
 
         } catch (\PDOException $e) {
             // app('sentry')->captureException($e);
             DB::rollback();
-            dd($e);
-            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
+
+            return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         } catch (\Exception $e) {
             //app('sentry')->captureException($e);
             DB::rollback();
-            dd($e);
-            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
+
+            return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         }
 
@@ -125,21 +125,21 @@ class ArticlesController extends Controller
 
             if (!$this->articlesRepo->descriptionStore($data, $article)) {
                 DB::rollback();
-                dd($e);
-                return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
+    
+                return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
             }
 
         } catch (\PDOException $e) {
             // app('sentry')->captureException($e);
             DB::rollback();
-            dd($e);
-            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
+
+            return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         } catch (\Exception $e) {
             //app('sentry')->captureException($e);
             DB::rollback();
-            dd($e);
-            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
+
+            return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         }
 
@@ -207,21 +207,21 @@ class ArticlesController extends Controller
 
             if (!$this->articlesRepo->update($data, $article, $article->ArticlesDescription->first())) {
                 DB::rollback();
-                dd($e);
-                return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
+    
+                return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
             }
 
         } catch (\PDOException $e) {
             // app('sentry')->captureException($e);
             DB::rollback();
-            dd($e);
-            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
+
+            return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         } catch (\Exception $e) {
             //app('sentry')->captureException($e);
             DB::rollback();
-            dd($e);
-            return redirect()->route('admin.articles.index')->with('error', implodeArrayToHtml($e->getMessage()));
+
+            return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         }
 

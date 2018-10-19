@@ -61,7 +61,7 @@
 
                         @endif
 
-                        <a href="{{route('admin.articles.categories.create')}}">Dodaj nową kategorię</a>
+                        <a href="{{route('admin.articles.categories.index')}}">Dodaj nową kategorię</a>
                         <br>
                         <a href="{{route('admin.articles.categories.index')}}">Zobacz wszystkie kategorie</a>
                  
