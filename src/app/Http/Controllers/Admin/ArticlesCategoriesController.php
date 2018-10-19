@@ -47,19 +47,33 @@ class ArticlesCategoriesController extends Controller
         $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
         return view('cms_articles_admin_articles_categories::create', compact('lang', 'articleCategory'));
     }
-
+ 
     /**
-     * Zapis
+     * Zapis zasobu
      *
+     * @param StoreArticlesCategoriesDescriptionRequest $request
+     * @param integer $articleCategoryId
+     * @return void
      */
     public function descriptionStore(StoreArticlesCategoriesDescriptionRequest $request, int $articleCategoryId){
   
         $data = $request->all();
-
         $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
+        
+        DB::beginTransaction();
+        
+        try{
+            
+            $articleCategory->ArticlesCategoriesDescription()->create($data);
 
+        }catch(\PDOException $e){
+            DB::rollback();
+            redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
-        $articleCategory->ArticlesCategoriesDescription()->create($data);
+        }catch(\Exception $e){
+            DB::rollback();
+            redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
+        }
 
         return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie zapisano!');
     }
