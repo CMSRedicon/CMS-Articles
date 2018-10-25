@@ -34,49 +34,49 @@ class ArticlesCategoriesController extends Controller
         return view('cms_articles_admin_articles_categories::index', compact('articlesCategories'));
     }
 
-    /**
-     * Widok dodania opisu
-     *
-     * @param integer $articleCategoryId
-     * @param String $lang
-     * @return void
-     */
-    public function descriptionCreate(int $articleCategoryId, String $lang = null){
-        if(is_null($lang)) $lang = 'pl';
+    // /**
+    //  * Widok dodania opisu
+    //  *
+    //  * @param integer $articleCategoryId
+    //  * @param String $lang
+    //  * @return void
+    //  */
+    // public function descriptionCreate(int $articleCategoryId, String $lang = null){
+    //     if(is_null($lang)) $lang = 'pl';
 
-        $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
-        return view('cms_articles_admin_articles_categories::create', compact('lang', 'articleCategory'));
-    }
+    //     $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
+    //     return view('cms_articles_admin_articles_categories::create', compact('lang', 'articleCategory'));
+    // }
  
-    /**
-     * Zapis zasobu
-     *
-     * @param StoreArticlesCategoriesDescriptionRequest $request
-     * @param integer $articleCategoryId
-     * @return void
-     */
-    public function descriptionStore(StoreArticlesCategoriesDescriptionRequest $request, int $articleCategoryId){
+    // /**
+    //  * Zapis zasobu
+    //  *
+    //  * @param StoreArticlesCategoriesDescriptionRequest $request
+    //  * @param integer $articleCategoryId
+    //  * @return void
+    //  */
+    // public function descriptionStore(StoreArticlesCategoriesDescriptionRequest $request, int $articleCategoryId){
   
-        $data = $request->all();
-        $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
+    //     $data = $request->all();
+    //     $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
         
-        DB::beginTransaction();
+    //     DB::beginTransaction();
         
-        try{
+    //     try{
             
-            $articleCategory->ArticlesCategoriesDescription()->create($data);
+    //         $articleCategory->ArticlesCategoriesDescription()->create($data);
 
-        }catch(\PDOException $e){
-            DB::rollback();
-            redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
+    //     }catch(\PDOException $e){
+    //         DB::rollback();
+    //         redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
-        }catch(\Exception $e){
-            DB::rollback();
-            redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
-        }
+    //     }catch(\Exception $e){
+    //         DB::rollback();
+    //         redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
+    //     }
 
-        return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie zapisano!');
-    }
+    //     return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie zapisano!');
+    // }
 
 
     /**
@@ -168,19 +168,19 @@ class ArticlesCategoriesController extends Controller
         $articleCategory->delete();
         return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie usunięto!');
     }
-    /**
-     * Usunięcie zasobów
-     *
-     * @param integer $articleCategoriesDescriptionId
-     * @return void
-     */
-    public function descriptionDelete(int $articleCategoriesDescriptionId)
-    {
+    // /**
+    //  * Usunięcie zasobów
+    //  *
+    //  * @param integer $articleCategoriesDescriptionId
+    //  * @return void
+    //  */
+    // public function descriptionDelete(int $articleCategoriesDescriptionId)
+    // {
         
-        $articleCategoriesDescription = ArticlesCategoriesDescription::findOrFail($articleCategoriesDescriptionId);
-        $articleCategoriesDescription->delete();
-        return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie usunięto!');
-    }
+    //     $articleCategoriesDescription = ArticlesCategoriesDescription::findOrFail($articleCategoriesDescriptionId);
+    //     $articleCategoriesDescription->delete();
+    //     return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie usunięto!');
+    // }
 
     /**
      * Zapis /
