@@ -32,6 +32,8 @@ class CmsServiceProvider extends ServiceProvider
     {
         //kontrolery
         $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesController');
+        $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesController');
+        $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Admin\ArticlesCategoriesDescriptionController');
         $this->app->make('Redicon\CMS_Articles\App\Http\Controllers\Ajax\AjaxController');
 
         //widoki

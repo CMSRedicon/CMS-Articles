@@ -38,7 +38,6 @@ class ArticlesController extends Controller
         })->each(function ($item) use (&$articlesCategories) {
             $articlesCategories[$item->id] = $item->ArticlesCategoriesDescription->first()->name;
         });
-
         return view('cms_articles_admin_articles::index', compact('articles', 'articlesCategories'));
     }
 

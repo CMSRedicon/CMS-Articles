@@ -34,51 +34,7 @@ class ArticlesCategoriesController extends Controller
         return view('cms_articles_admin_articles_categories::index', compact('articlesCategories'));
     }
 
-    // /**
-    //  * Widok dodania opisu
-    //  *
-    //  * @param integer $articleCategoryId
-    //  * @param String $lang
-    //  * @return void
-    //  */
-    // public function descriptionCreate(int $articleCategoryId, String $lang = null){
-    //     if(is_null($lang)) $lang = 'pl';
-
-    //     $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
-    //     return view('cms_articles_admin_articles_categories::create', compact('lang', 'articleCategory'));
-    // }
  
-    // /**
-    //  * Zapis zasobu
-    //  *
-    //  * @param StoreArticlesCategoriesDescriptionRequest $request
-    //  * @param integer $articleCategoryId
-    //  * @return void
-    //  */
-    // public function descriptionStore(StoreArticlesCategoriesDescriptionRequest $request, int $articleCategoryId){
-  
-    //     $data = $request->all();
-    //     $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
-        
-    //     DB::beginTransaction();
-        
-    //     try{
-            
-    //         $articleCategory->ArticlesCategoriesDescription()->create($data);
-
-    //     }catch(\PDOException $e){
-    //         DB::rollback();
-    //         redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
-
-    //     }catch(\Exception $e){
-    //         DB::rollback();
-    //         redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
-    //     }
-
-    //     return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie zapisano!');
-    // }
-
-
     /**
      * Zapis nowej kategorii
      *

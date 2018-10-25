@@ -48,8 +48,9 @@ class ArticlesCategoriesDescriptionController extends Controller
     public function store(StoreArticlesCategoriesDescriptionRequest $request, int $articleCategoryId){
   
         $data = $request->all();
+
         $articleCategory = ArticlesCategories::findOrFail($articleCategoryId);
-        
+
         DB::beginTransaction();
         
         try{
@@ -64,7 +65,9 @@ class ArticlesCategoriesDescriptionController extends Controller
             DB::rollback();
             redirect()->route('admin.articles.categories.index')->with('danger', implodeArrayToHtml($e->getMessage()));
         }
-
+        
+        DB::commit();
+        
         return redirect()->route('admin.articles.categories.index')->with('success', 'Pomyślnie zapisano!');
     }
     /**
