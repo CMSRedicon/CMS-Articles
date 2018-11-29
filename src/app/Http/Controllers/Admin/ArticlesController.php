@@ -218,7 +218,7 @@ class ArticlesController extends Controller
             return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         }
-
+        
         DB::commit();
         return redirect()->route('admin.articles.index')->with('success', 'Pomyślnie zapisano !');
 
