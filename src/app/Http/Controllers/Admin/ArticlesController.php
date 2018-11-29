@@ -121,7 +121,6 @@ class ArticlesController extends Controller
 
             if (!$this->articlesRepo->descriptionStore($data, $article)) {
                 DB::rollback();
-    
                 return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($this->articlesRepo->getErrors(), null));
             }
 
@@ -218,7 +217,7 @@ class ArticlesController extends Controller
             return redirect()->route('admin.articles.index')->with('danger', implodeArrayToHtml($e->getMessage()));
 
         }
-        
+
         DB::commit();
         return redirect()->route('admin.articles.index')->with('success', 'Pomyślnie zapisano !');
 
