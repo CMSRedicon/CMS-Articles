@@ -39,7 +39,7 @@ gulp.task('precompile', ['ts'], function () {
             'src/public/assets/src/js/frontend.js',
         ])
         .pipe(clean())
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(concat('start.js'))
         .pipe(gulp.dest("src/public/assets/output/js"));
 

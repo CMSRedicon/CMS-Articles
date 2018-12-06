@@ -15,8 +15,8 @@ After successful installation, we launch from the command line
 ```
 php artisan migrate --path=vendor\redicon\cms_articles\src\database\migrations
 php artisan db:seed --class=Redicon\CMS_Articles\Database\Seeds\DatabaseSeeder
-php artisan vendor:publish --provider=Redicon\CMS_Articles\CmsServiceProvider
-```
+php artisan vendor:publish --provider=Redicon\CMS_Articles\CmsServiceProvide
+```r
 
 
 
