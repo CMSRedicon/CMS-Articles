@@ -1,0 +1,12 @@
+{
+    "files": [
+        "src/public/assets/src/ts/.d.ts",
+        "src/public/assets/src/ts/helpers.ts",
+        "src/public/assets/src/ts/slug.ts",
+        "src/public/assets/src/ts/frontend.ts",
+    ],
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "target": "es5",
+    }
+}
