@@ -5,7 +5,7 @@ Install CMS Redicon first
 ### Installing
 Add to the composer.json file
 ```
-"redicon/cms_articles" : "dev-master"
+"redicon/cms-articles" : "dev-master"
 ```
 Run
 ```
